@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 @ExportAsService ({MyPluginComponent.class})
-@Named ("myPluginComponent")
+@Named("myPluginComponent")
 public class MyPluginComponentImpl implements MyPluginComponent
 {
     @ComponentImport

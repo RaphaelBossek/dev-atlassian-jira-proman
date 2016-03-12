@@ -1,9 +1,6 @@
 package org.raboss.dev.atlassian.jira.proman.entity;
 
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import net.java.ao.*;
-
-import java.util.Map;
 
 /**
  * Created by bossekr on 08.03.16.
@@ -20,10 +17,10 @@ public interface EvalCriterion1 extends Entity {
     public String getDescription();
     public void setDescription(String description);
 
-    public void setIsSmallNumberIsBetter(Boolean v);
-    public Boolean isSmallNumberBetter();
-    public void setIsBigNumberIsBetter(Boolean v);
-    public Boolean isBigNumberBetter();
+    public void setIsSmallNumberIsBetter(boolean v);
+    public boolean isSmallNumberBetter();
+    public void setIsBigNumberIsBetter(boolean v);
+    public boolean isBigNumberBetter();
 
     public enum TypeOfIndex {
         INCOMPLETE,

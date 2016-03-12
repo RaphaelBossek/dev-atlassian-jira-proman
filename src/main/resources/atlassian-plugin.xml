@@ -7,21 +7,23 @@
         <param name="plugin-logo">images/pluginLogo.png</param>
     </plugin-info>
 
-    <!-- Persistence -->
-    <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects"/>
+    <!-- Note: This MUST be public and registered under the LifecycleAware interface to work! -->
+    <!-- https://docs.atlassian.com/sal-api/2.11.6/sal-api/apidocs/com/atlassian/sal/api/lifecycle/LifecycleAware.html -->
+    <component key="UnInstallationUpgradeSetupImpl" class="org.raboss.dev.atlassian.jira.proman.impl.UnInstallationUpgradeSetupImpl" public="true">
+        <innterface>com.atlassian.sal.api.lifecycle.LifecycleAware</innterface>
+    </component>
+
     <ao key="ao-module">
+        <description>Awesome active objects entity</description>
         <entity>org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion1</entity>
     </ao>
 
-    <!-- Initialisation --
-    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher"/>
-    <component key="eventListener">
-        <description>A listener for plugin lifecycle events</description>
+    <component key="eventListener" class="org.raboss.dev.atlassian.jira.proman.impl.UnInstallationUpgradeSetupImpl">
+        <description>ProMan class that processes the Jira events.</description>
     </component>
-    -->
 
     <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="org.raboss.dev.atlassian.jira.ui.proman"/>
+    <resource type="i18n" name="i18n" location="org.raboss.dev.atlassian.jira.proman.ui.proman"/>
 
     <!-- add our web resources -->
     <web-resource key="proman-resources" name="proman Web Resources">
