@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.raboss.dev.atlassian.jira</groupId>
+    <artifactId>proman</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <organization>
+        <name>RaBoss Org.</name>
+        <url>http://www.raboss.org</url>
+    </organization>
+
+    <name>proman</name>
+    <description>This is the org.raboss.dev.atlassian.jira:proman plugin for Atlassian JIRA.</description>
+    <packaging>atlassian-plugin</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-api</artifactId>
+            <version>${jira.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.sal</groupId>
+            <artifactId>sal-api</artifactId>
+            <version>${sal.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.templaterenderer</groupId>
+            <artifactId>atlassian-template-renderer-api</artifactId>
+            <version>${jira.templaterenderer.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>11.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-plugin</artifactId>
+            <version>${ao.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Add dependency on jira-core if you want access to JIRA implementation classes as well as the sanctioned API. -->
+        <!-- This is not normally recommended, but may be required eg when migrating a plugin originally developed against JIRA 4.x -->
+        <!-- -->
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-core</artifactId>
+            <version>${jira.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.plugin</groupId>
+            <artifactId>atlassian-spring-scanner-annotation</artifactId>
+            <version>${atlassian.spring.scanner.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.plugin</groupId>
+            <artifactId>atlassian-spring-scanner-runtime</artifactId>
+            <version>${atlassian.spring.scanner.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.core.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spirng.security.core.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>1.1.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slffourj.logfourjtwelve.verion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- WIRED TEST RUNNER DEPENDENCIES -->
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-osgi-testrunner</artifactId>
+            <version>${plugin.testrunner.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.2-atlassian-1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-tests</artifactId>
+            <version>${jira.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-func-tests</artifactId>
+            <version>${jira.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://answers.atlassian.com/questions/23760817/jira-testkit-dependencies -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>1.8-atlassian-8</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.event</groupId>
+            <artifactId>atlassian-event</artifactId>
+            <version>${atlassian.event.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Uncomment to use TestKit in your project. Details at https://bitbucket.org/atlassian/jira-testkit -->
+		<!-- You can read more about TestKit at https://developer.atlassian.com/display/JIRADEV/Plugin+Tutorial+-+Smarter+integration+testing+with+TestKit -->
+		<!--
+		<dependency>
+			<groupId>com.atlassian.jira.tests</groupId>
+			<artifactId>jira-testkit-client</artifactId>
+			<version>${testkit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-jira-plugin</artifactId>
+                <version>${amps.version}</version>
+                <extensions>true</extensions>
+                <!--
+                <executions>
+                    <execution>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>generate-test-manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                -->
+                <configuration>
+                    <productVersion>${jira.version}</productVersion>
+                    <productDataVersion>${jira.version}</productDataVersion>
+					<!-- Uncomment to install TestKit backdoor in JIRA. -->
+					<pluginArtifacts>
+						<pluginArtifact>
+							<groupId>com.atlassian.jira.tests</groupId>
+							<artifactId>jira-testkit-plugin</artifactId>
+							<version>${testkit.version}</version>
+						</pluginArtifact>
+					</pluginArtifacts>
+                    <enableQuickReload>true</enableQuickReload>
+                    <enableFastdev>false</enableFastdev>
+                    <instructions>
+                        <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
+
+                        <!-- Add package to export here -->
+                        <Export-Package>
+                            org.raboss.dev.atlassian.jira.api,
+                        </Export-Package>
+
+                        <!-- Add package import here -->
+                        <Import-Package>
+                            org.springframework.osgi.*;resolution:="optional",
+                            org.eclipse.gemini.blueprint.*;resolution:="optional",
+                            *
+                        </Import-Package>
+
+                        <!-- Ensure plugin is spring powered - see https://extranet.atlassian.com/x/xBS9hQ  -->
+                        <Spring-Context>*</Spring-Context>
+                    </instructions>
+                    <!--
+                    <products>
+                        <product>
+                            <id>jira</id>
+                            <instanceId>jiraExpected</instanceId>
+                            <productVersion>${jira.version}</productVersion>
+                            <productDataVersion>${jira.version}</productDataVersion>
+                        </product>
+                    </products>
+                    -->
+                    <!-- https://developer.atlassian.com/docs/getting-started/writing-and-running-plugin-tests/create-and-run-traditional-integration-tests -->
+                    <testGroups>
+                        <testGroup>
+                            <id>jira-integration</id>
+                            <productIds>
+                                <productId>jira</productId>
+                            </productIds>
+                            <includes>
+                                <include>it/**/*Test.java</include>
+                            </includes>
+                        </testGroup>
+                    </testGroups>
+                    <!-- https://developer.atlassian.com/docs/faq/writing-your-first-plugin-faq/using-your-own-log4j-configuration-for-your-plugin -->
+                    <log4jProperties>src/aps/log4j.properties</log4jProperties>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.atlassian.plugin</groupId>
+                <artifactId>atlassian-spring-scanner-maven-plugin</artifactId>
+                <version>${atlassian.spring.scanner.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>atlassian-spring-scanner</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <scannedDependencies>
+                        <dependency>
+                            <groupId>com.atlassian.plugin</groupId>
+                            <artifactId>atlassian-spring-scanner-external-jar</artifactId>
+                        </dependency>
+                    </scannedDependencies>
+                    <verbose>false</verbose>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-test-resources</phase>
+                        <configuration>
+                            <tasks>
+                                <!-- Required by the test database -->
+                                <mkdir dir="${project.basedir}/target/jira/indexes"/>
+                                <mkdir dir="${project.basedir}/target/jira/attachments"/>
+                                <mkdir dir="${project.basedir}/target/jira/backups"/>
+                            </tasks>
+                        </configuration>
+                        <goals><goal>run</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <jira.version>6.4.12</jira.version>
+        <jira.api.version>6.4.12</jira.api.version>
+        <jira.templaterenderer.version>1.5.6</jira.templaterenderer.version>
+        <ao.version>0.28.7</ao.version>
+        <atlassian.event.version>2.3.5</atlassian.event.version>
+        <amps.version>6.2.1</amps.version>
+        <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
+        <atlassian.spring.scanner.version>1.2.6</atlassian.spring.scanner.version>
+        <!-- This key is used to keep the consistency between the key in atlassian-plugin.xml and the key to generate bundle. -->
+        <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
+		<!-- TestKit version 6.x for JIRA 6.x -->
+		<testkit.version>6.4.12</testkit.version>
+        <!-- Tomcat7x -->
+        <atlassian.tomcat.version>7.0.33</atlassian.tomcat.version>
+        <!-- https://answers.atlassian.com/questions/33144650/which-version-of-sal-to-use-in-pom.xml-dependency-for-jira-7-development- -->
+        <sal.api.version>2.11.6</sal.api.version>
+        <spring.core.version>2.5.6.SEC01</spring.core.version>
+        <spirng.security.core.version>3.1.0.RELEASE</spirng.security.core.version>
+        <slffourj.logfourjtwelve.verion>1.7.9</slffourj.logfourjtwelve.verion>
+    </properties>
+</project>

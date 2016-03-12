@@ -1,0 +1,89 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- Persistence -->
+    <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects"/>
+    <ao key="ao-module">
+        <entity>org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion1</entity>
+    </ao>
+
+    <!-- Initialisation --
+    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher"/>
+    <component key="eventListener">
+        <description>A listener for plugin lifecycle events</description>
+    </component>
+    -->
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="org.raboss.dev.atlassian.jira.ui.proman"/>
+
+    <!-- add our web resources -->
+    <web-resource key="proman-resources" name="proman Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+
+        <resource type="download" name="proman.css" location="/css/proman.css"/>
+        <resource type="download" name="proman.js" location="/js/proman.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>proman</context>
+    </web-resource>
+
+    <servlet key="admin-sevlet" class="org.raboss.dev.atlassian.jira.proman.ui.AdminServlet">
+        <url-pattern>/proman/admin</url-pattern>
+    </servlet>
+
+    <servlet key="admin-evaluation-criteria" class="org.raboss.dev.atlassian.jira.proman.ui.AdminEvaluationCriteria">
+        <url-pattern>/proman/evaluationcriteria</url-pattern>
+    </servlet>
+
+    <!-- https://developer.atlassian.com/jiradev/jira-platform/building-jira-add-ons/jira-plugins2-overview/jira-plugin-module-types/webwork-plugin-module -->
+    <webwork1 key="showcurrentuser" name="Show Current Users Project Permissions" class="java.lang.Object" roles-required="use">
+        <actions>
+            <action name="org.raboss.dev.atlassian.jira.proman.ui.ShowUsersProjectPermissionAction" alias="ShowUsersProjectPermissionAction">
+                <view name="success">templates/showprojects.vm</view>
+                <view name="error">templates/showprojects.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <!-- Menu -->
+    <!-- https://developer.atlassian.com/docs/getting-started/plugin-modules/web-item-plugin-module -->
+    <web-item key="proman-menu" section="system.top.navigation.bar" weight="151">
+        <description>Product Manager tools</description>
+        <label>ProMan</label>
+        <tooltip>Product Manager tools</tooltip>
+        <link linkId="proman-menu"></link>
+    </web-item>
+    <!-- https://answers.atlassian.com/questions/11970940/how-to-use-webitemprovider-since-simplelinkfactory-is-deprecated -->
+    <web-section key="proman-scoring-polls" location="proman-menu" weight="100"
+                 i18n="org.raboss.dev.atlassian.jira.proman.menu.last_scoring_polls">
+        <label key="org.raboss.dev.atlassian.jira.proman.menu.last_scoring_polls.tooltip" />
+    </web-section>
+    <web-item-provider key="proman-last-scoring-polls-provider" section="proman-menu/proman-scoring-polls" weight="101"
+                       class="org.raboss.dev.atlassian.jira.proman.ui.TopNavigationBarMenu"/>
+    <web-item key="proman-create-scoring-poll" section="proman-menu/proman-scoring-polls" weight="199">
+        <label key="org.raboss.dev.atlassian.jira.proman.menu.create_scoring_poll" />
+        <tooltip key="org.raboss.dev.atlassian.jira.proman.menu.create_scoring_poll.tooltip" />
+        <link linkId="proman-create-scoring-poll">/plugins/servlet/proman/admin</link>
+    </web-item>
+
+    <web-section key="proman-manage" location="proman-menu" weight="200" />
+    <web-item key="proman-manage-evaluation-criteria" section="proman-menu/proman-manage" weight="201">
+        <label key="org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criteria" />
+        <tooltip key="org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criteria.tooltip" />
+        <link linkId="proman-manage-evaluation-criteria">/plugins/servlet/proman/evaluationcriteria</link>
+    </web-item>
+    <web-item key="proman-houseofquality" section="proman-menu/proman-manage" weight="202">
+        <description>Das House of Quality (HoQ) ist die Visualisierung und das Symbol des Quality Function Deployment-Prozesses.</description>
+        <label>House of Quality</label>
+        <tooltip>House of Quality</tooltip>
+        <link linkId="proman-houseofquality">https://www.projektmagazin.de/glossarterm/house-quality</link>
+    </web-item>
+
+</atlassian-plugin>

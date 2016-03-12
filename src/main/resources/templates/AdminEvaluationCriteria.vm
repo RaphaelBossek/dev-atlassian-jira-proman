@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.manage_evaluation_criteria")</title>
+</head>
+<body>
+<form id="admin" class="aui" action="" method="POST">
+    <div class="field-group">
+        <label for="comment-email">Email
+            <span class="aui-icon icon-required">(required)</span></label>
+        <input class="text medium-field" type="text"
+               id="comment-email" name="comment-email" placeholder="you@example.com">
+        <div class="description">Your primary email address.</div>
+    </div>
+
+    <div class="field-group">
+        <input type="submit" value="Save" class="button"></input>
+    </div>
+</form>
+</body>
+</html>

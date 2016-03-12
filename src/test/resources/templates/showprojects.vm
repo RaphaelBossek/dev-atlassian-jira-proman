@@ -1,0 +1,18 @@
+<html>
+<body>
+    #if($action.hasAnyErrors())
+    <ul>
+        #foreach($error in $action.getErrorMessages())
+            <li>$error</li>
+        #end
+    </ul>
+    #else
+    <div>The user $action.remoteUser.name has the '$action.permission' permission in the following projects:</div>
+    <ul id="projects-list">
+        #foreach($project in $action.projects)
+            <li>$project.name ($project.key)</li>
+        #end
+    </ul>
+    #end
+</body>
+</html>
