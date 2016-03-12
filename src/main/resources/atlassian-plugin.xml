@@ -10,18 +10,18 @@
     <!-- Note: This MUST be public and registered under the LifecycleAware interface to work! -->
     <!-- https://docs.atlassian.com/sal-api/2.11.6/sal-api/apidocs/com/atlassian/sal/api/lifecycle/LifecycleAware.html -->
     <component key="UnInstallationUpgradeSetupImpl" class="org.raboss.dev.atlassian.jira.proman.impl.UnInstallationUpgradeSetupImpl" public="true">
-        <innterface>com.atlassian.sal.api.lifecycle.LifecycleAware</innterface>
+        <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
     </component>
 
     <ao key="ao-module">
         <description>Awesome active objects entity</description>
         <entity>org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion1</entity>
     </ao>
-
+<!--
     <component key="eventListener" class="org.raboss.dev.atlassian.jira.proman.impl.UnInstallationUpgradeSetupImpl">
         <description>ProMan class that processes the Jira events.</description>
     </component>
-
+-->
     <!-- add our i18n resource -->
     <resource type="i18n" name="i18n" location="org.raboss.dev.atlassian.jira.proman.ui.proman"/>
 
