@@ -46,7 +46,7 @@
         <dependency>
             <groupId>com.atlassian.activeobjects</groupId>
             <artifactId>activeobjects-plugin</artifactId>
-            <version>${ao.version}</version>
+            <version>${activeObjects.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- Add dependency on jira-core if you want access to JIRA implementation classes as well as the sanctioned API. -->
@@ -181,6 +181,7 @@
                 </executions>
                 -->
                 <configuration>
+                    <allowGoogleTracking>false</allowGoogleTracking>
                     <productVersion>${jira.version}</productVersion>
                     <productDataVersion>${jira.version}</productDataVersion>
 					<!-- Uncomment to install TestKit backdoor in JIRA. -->
@@ -198,7 +199,7 @@
 
                         <!-- Add package to export here -->
                         <Export-Package>
-                            org.raboss.dev.atlassian.jira.api,
+                            org.raboss.dev.atlassian.jira.proman.api,
                         </Export-Package>
 
                         <!-- Add package import here -->
@@ -282,9 +283,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.6</source>
-                    <target>1.6</target>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -294,7 +296,7 @@
         <jira.version>6.4.12</jira.version>
         <jira.api.version>6.4.12</jira.api.version>
         <jira.templaterenderer.version>1.5.6</jira.templaterenderer.version>
-        <ao.version>0.28.7</ao.version>
+        <activeObjects.version>0.28.7</activeObjects.version>
         <atlassian.event.version>2.3.5</atlassian.event.version>
         <amps.version>6.2.1</amps.version>
         <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
