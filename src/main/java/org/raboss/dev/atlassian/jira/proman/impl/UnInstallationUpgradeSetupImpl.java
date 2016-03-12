@@ -153,6 +153,7 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
      */
     synchronized private boolean isLifecycleReady(LifecycleEvent event)
     {
+        log.debug("lifecycleEvents.size() == {} ({})", lifecycleEvents.size()+1, LifecycleEvent.values().length);
         return lifecycleEvents.add(event) && lifecycleEvents.size() == LifecycleEvent.values().length;
     }
 
