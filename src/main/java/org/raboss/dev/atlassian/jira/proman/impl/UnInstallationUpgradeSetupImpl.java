@@ -7,6 +7,8 @@ import com.atlassian.plugin.event.events.PluginEnabledEvent;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.lifecycle.LifecycleAware;
+import com.atlassian.sal.api.lifecycle.LifecycleManager;
+//import com.atlassian.sal.jira.lifecycle.JiraLifecycleManager;
 import org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +29,11 @@ import java.util.Set;
 /**
  * Created by bossekr on 09.03.16.
  * p.71
+ * https://answers.atlassian.com/questions/37549499/answers/38059259
  * https://answers.atlassian.com/questions/32977748/bitbucket-eventlistener-is-not-called
  * https://bitbucket.org/cfuller/atlassian-scheduler-jira-example/src/371cbc419c5a4fa3197d4dc28ddeb21105718a43/src/main/java/com/atlassian/jira/plugins/example/scheduler/impl/AwesomeLauncher.java?at=master&fileviewer=file-view-default
  * https://docs.atlassian.com/sal-api/2.11.6/sal-api/apidocs/index.html?com/atlassian/sal/api/lifecycle/LifecycleAware.html
+ * https://developer.atlassian.com/jiradev/jira-platform/building-jira-add-ons/jira-plugins2-overview/jira-plugin-lifecycle
  */
 @Scanned
 //@NamedMul({@Named("eventListener"), @Named("awesomeLauncher")})
@@ -41,6 +45,7 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
     protected final ActiveObjects activeObjects;
     @ComponentImport
     protected final EventPublisher eventPublisher;
+    protected final LifecycleManager lifecycleManager;
 
     static final private Logger log;
 
@@ -63,10 +68,11 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
     }
 
     @Inject
-    public UnInstallationUpgradeSetupImpl(final ActiveObjects activeObjects, final EventPublisher eventPublisher)
+    public UnInstallationUpgradeSetupImpl(final ActiveObjects activeObjects, final EventPublisher eventPublisher, final LifecycleManager lifecycleManager)
     {
         this.activeObjects = activeObjects;
         this.eventPublisher = eventPublisher;
+        this.lifecycleManager = lifecycleManager;
     }
 
     /**
