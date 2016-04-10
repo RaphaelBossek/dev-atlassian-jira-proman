@@ -4,7 +4,7 @@ instance="instance-postgres"
 #atlas-clean
 find target -name "proman-*" -exec rm -rf {} \;
 rm -rf target/classes
-atlas-debug --version 6.4.12 --product jira --instanceId $instance $* 2>&1|tee atlas-debug.log
+atlas-debug --version 6.4.12 --product jira --instanceId $instance -DskipTests=true $* 2>&1|tee atlas-debug.log
 atlas-create-home-zip
 d=`date "+%Y%m%d-%H%M%S"`_$instance
 b=backup/$d
