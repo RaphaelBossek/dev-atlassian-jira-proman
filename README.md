@@ -4,12 +4,13 @@ One of the core activities as [Software Product Manager (SPM)](http://community.
 
 This task is done by [Software Product Manager (SPM)](http://community.ispma.org/body-of-knowledge/) in cooperation with other professionals, e.g. development, marketing or sales, who contribute with their domain specific knowledge.
 
-One such a tool is Demand Metric's [Business Strategy Prioritization Tool](http://www.demandmetric.com/content/business-strategy-prioritization-tool) which is done - of course, what else - in a spreadsheet.
-This approach is suitable for a small number of simple topics. If the complexity increases, especially if you start describing your ideas in [Portfolio Epics](http://www.scaledagileframework.com/epic/) as Osterwalder's [Business Model Canvas](http://www.businessmodelgeneration.com/canvas/bmc) and [Value Proposition Design](https://strategyzer.com/books/value-proposition-design) things become hard to manage.
+One such tool is Demand Metric's [Business Strategy Prioritization Tool](http://www.demandmetric.com/content/business-strategy-prioritization-tool) which is done - of course, what else - in a spreadsheet.
+This approach is suitable for a small number of simple topics. If the complexity increases, especially if you start describing your ideas in [Portfolio Epics](http://www.scaledagileframework.com/epic/), as Osterwalder's [Business Model Canvas](http://www.businessmodelgeneration.com/canvas/bmc) and [Value Proposition Design](https://strategyzer.com/books/value-proposition-design) advice, things become hard to manage.
 
-This project is dedicated for all the [Software Product Manager (SPM)](http://community.ispma.org/body-of-knowledge/) who are using [Atlassian JIRA project management software](https://atlassian.com/software/jira) for managing their [Portfolio Epics](http://www.scaledagileframework.com/epic/) and want to start a poll with selected [Portfolio Epics](http://www.scaledagileframework.com/epic/) and want to make their decision making process involving and transparent to their organisation, especially for their [Product Owners](http://www.scaledagileframework.com/product-owner/).
+This project is dedicated for all those [Software Product Managers (SPM)](http://community.ispma.org/body-of-knowledge/) who uses [Atlassian JIRA project management software](https://atlassian.com/software/jira) and want to make their decision making process involving and transparent to their organisation, especially for their [Product Owners](http://www.scaledagileframework.com/product-owner/).
 
 With this plugin for [Atlassian JIRA project management software](https://atlassian.com/software/jira) you are able to:
+
 * Define weightings which are used for polls
 * Define polls with predefined weightings on a selected number of topics
 * Invite a selected number of users to participate in a poll
@@ -65,4 +66,16 @@ SOFTWARE.
 
 # Let's Start Coding
 
-I'm developing on a Mac with JetBrain's IntelliJ IDEA and [Atlassian JIRA SDK](https://developer.atlassian.com/docs/developer-tools/working-with-the-sdk) and PostgreSQL as database backend.
+I'm developing on a Mac with [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) and [Atlassian JIRA SDK](https://developer.atlassian.com/docs/developer-tools/working-with-the-sdk) and [PostgreSQL](http://postgresapp.com/) as database backend.
+
+Here are the SDK commands you'll use immediately:
+
+* atlas-run   -- installs this plugin into the product and starts it on localhost
+* atlas-debug -- same as atlas-run, but allows a debugger to attach at port 5005
+* atlas-cli   -- after atlas-run or atlas-debug, opens a Maven command line window:
+                 - 'pi' reinstalls the plugin into the running product instance
+* atlas-help  -- prints description for all commands in the SDK
+
+Full documentation is always available at:
+
+https://developer.atlassian.com/display/DOCS/Introduction+to+the+Atlassian+Plugin+SDK
