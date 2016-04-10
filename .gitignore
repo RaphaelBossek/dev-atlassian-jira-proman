@@ -12,5 +12,7 @@
 hs_err_pid*
 
 # Build directory
+backup/
 target/
 .idea/
+*.iml
