@@ -32,6 +32,7 @@ A small and short overview about the project plan:
 - [ ] Analysing polls is working
 - [ ] Finalise the documentation
 - [ ] Start the field trial
+- [ ] Finalise the automatic test cases with collected field trial data
 - [ ] Publish the plugin to [Atlassian Marketplace](https://marketplace.atlassian.com/)
 
 # Pre-requirements
@@ -66,15 +67,15 @@ SOFTWARE.
 
 # Let's Start Coding
 
-I'm developing on a Mac with [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) and [Atlassian JIRA SDK](https://developer.atlassian.com/docs/developer-tools/working-with-the-sdk) and [PostgreSQL](http://postgresapp.com/) as database backend.
+I'm developing on a Mac with [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/), [Atlassian JIRA SDK](https://developer.atlassian.com/docs/developer-tools/working-with-the-sdk) and [PostgreSQL](http://postgresapp.com/) as database backend.
 
 Here are the SDK commands you'll use immediately:
 
-* atlas-run   -- installs this plugin into the product and starts it on localhost
-* atlas-debug -- same as atlas-run, but allows a debugger to attach at port 5005
-* atlas-cli   -- after atlas-run or atlas-debug, opens a Maven command line window:
-                 - 'pi' reinstalls the plugin into the running product instance
-* atlas-help  -- prints description for all commands in the SDK
+* `atlas-run`   -- installs this plugin into the product and starts it on localhost
+* `atlas-debug` -- same as atlas-run, but allows a debugger to attach at port 5005
+* `atlas-cli`   -- after atlas-run or atlas-debug, opens a Maven command line window:
+    * `pi` reinstalls the plugin into the running product instance
+* `atlas-help`  -- prints description for all commands in the SDK
 
 Full documentation is always available at:
 
