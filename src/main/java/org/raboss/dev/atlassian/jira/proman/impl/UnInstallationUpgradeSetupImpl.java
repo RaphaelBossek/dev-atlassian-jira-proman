@@ -45,7 +45,8 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
     protected final ActiveObjects activeObjects;
     @ComponentImport
     protected final EventPublisher eventPublisher;
-    protected final LifecycleManager lifecycleManager;
+    @ComponentImport
+    final LifecycleManager lifecycleManager;
 
     static final private Logger log;
 
@@ -160,7 +161,7 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
     synchronized private boolean isLifecycleReady(LifecycleEvent event)
     {
         log.debug("lifecycleEvents.size() == {} ({})", lifecycleEvents.size()+1, LifecycleEvent.values().length);
-        return lifecycleEvents.add(event) && lifecycleEvents.size() == LifecycleEvent.values().length;
+        return lifecycleEvents.add(event) && lifecycleEvents.size() == LifecycleEvent.values().length -1;
     }
 
 
@@ -200,29 +201,30 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
      */
     private void initActiveObjects()
     {
-        log.info("initActiveObjects");
+        log.info("initActiveObjects()");
         activeObjects.flushAll();
         EvalCriterion1[] ecs = activeObjects.get(EvalCriterion1.class);
         if (ecs.length == 0)
         {
+            log.debug("Create ActiveObjects for proman");
             // Strategic Fit
             EvalCriterion1 ec = activeObjects.create(EvalCriterion1.class);
             ec.setName("Alignment with Company Goals");
-            ec.setDescription("How aligned is this project to corporate goals & objectives?");
+            ec.setComment("How aligned is this project to corporate goals & objectives?");
             ec.setWeighting(15);
             ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
             ec.setIsBigNumberIsBetter(true);
             ec.save();
             ec = activeObjects.create(EvalCriterion1.class);
             ec.setName("Market Positioning");
-            ec.setDescription("Does this initiative position us better in the market?");
+            ec.setComment("Does this initiative position us better in the market?");
             ec.setWeighting(20);
             ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
             ec.setIsBigNumberIsBetter(true);
             ec.save();
             ec = activeObjects.create(EvalCriterion1.class);
             ec.setName("Core Capabilities");
-            ec.setDescription("Does this initiative leverage our core capabilities (technology, operations, sales)?");
+            ec.setComment("Does this initiative leverage our core capabilities (technology, operations, sales)?");
             ec.setWeighting(5);
             ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
             ec.setIsBigNumberIsBetter(true);
@@ -230,21 +232,21 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
             // Economical Impact
             ec = activeObjects.create(EvalCriterion1.class);
             ec.setName("Revenue Potential");
-            ec.setDescription("What is the anticipated impact on revenue for this initiative.");
+            ec.setComment("What is the anticipated impact on revenue for this initiative.");
             ec.setWeighting(15);
             ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
             ec.setIsBigNumberIsBetter(true);
             ec.save();
             ec = activeObjects.create(EvalCriterion1.class);
             ec.setName("Cost/Benefit");
-            ec.setDescription("Does this initiative have a solid cost/benefit?");
+            ec.setComment("Does this initiative have a solid cost/benefit?");
             ec.setWeighting(20);
             ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
             ec.setIsBigNumberIsBetter(true);
             ec.save();
             ec = activeObjects.create(EvalCriterion1.class);
             ec.setName("Low Cost");
-            ec.setDescription("Is this project relatively low-cost?");
+            ec.setComment("Is this project relatively low-cost?");
             ec.setWeighting(5);
             ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
             ec.setIsBigNumberIsBetter(true);
@@ -252,21 +254,21 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
             // Feasibility
             ec = activeObjects.create(EvalCriterion1.class);
             ec.setName("Technical Risk");
-            ec.setDescription("What is the probability of overcoming the technical challenges of the project?");
+            ec.setComment("What is the probability of overcoming the technical challenges of the project?");
             ec.setWeighting(10);
             ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
             ec.setIsBigNumberIsBetter(true);
             ec.save();
             ec = activeObjects.create(EvalCriterion1.class);
             ec.setName("Resources - Financial");
-            ec.setDescription("Do we have the financial resources to execute this initiative?");
+            ec.setComment("Do we have the financial resources to execute this initiative?");
             ec.setWeighting(5);
             ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
             ec.setIsBigNumberIsBetter(true);
             ec.save();
             ec = activeObjects.create(EvalCriterion1.class);
             ec.setName("Resources - People");
-            ec.setDescription("Do we have the skills & bandwidth to execute this initiative?");
+            ec.setComment("Do we have the skills & bandwidth to execute this initiative?");
             ec.setWeighting(5);
             ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
             ec.setIsBigNumberIsBetter(true);

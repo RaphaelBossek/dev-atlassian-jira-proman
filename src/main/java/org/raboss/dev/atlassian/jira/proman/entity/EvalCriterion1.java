@@ -14,8 +14,8 @@ public interface EvalCriterion1 extends Entity {
     public int getWeighting();
     public void setWeighting(int weighting);
 
-    public String getDescription();
-    public void setDescription(String description);
+    public String getComment();
+    public void setComment(String comment);
 
     public void setIsSmallNumberIsBetter(boolean v);
     public boolean isSmallNumberBetter();
