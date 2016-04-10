@@ -14,12 +14,11 @@ With this plugin for [Atlassian JIRA project management software](https://atlass
 * Define weightings which are used for polls
 * Define polls with predefined weightings on a selected number of topics
 * Invite a selected number of users to participate in a poll
-* Analyse the poll results with descriptive statistics methods and visualise then in a [box plot](https://en.wikipedia.org/wiki/Box_plot)
+* Analyse the poll results with descriptive statistics methods and visualise then in a [box plot](https://en.wikipedia.org/wiki/Box_plot) and [Product Portfolio Matrix](https://en.wikipedia.org/wiki/Growth%E2%80%93share_matrix)
 
 # Status of the project
 
-Because it's a spare time software development project for me, things going slowly but consistent. As soon as there is a working version you will find the corresponding plugin for download here including a comprehensive description here and on my [homepage](http://raphaelbossek.wordpress.com).
-The final version will be made public in [Atlassian Marketplace](https://marketplace.atlassian.com/).
+Because it's a spare time software development project for me, things going slowly but consistent.
 
 A small and short overview about the project plan:
 - [x] Concept papers with maths, required software libraries and tools, database model, user interface finalised 
@@ -29,7 +28,9 @@ A small and short overview about the project plan:
 - [ ] Setup of polls is working
 - [ ] Definition of weighting categories is working
 - [ ] Execution of polls is working
-- [ ] Analysing polls is working
+- [ ] Analysing polls as [box plot](https://en.wikipedia.org/wiki/Box_plot) is working
+- [ ] Analysing polls as [Product Portfolio Matrix](https://en.wikipedia.org/wiki/Growth%E2%80%93share_matrix) is working
+- [ ] Automatic changing the ticket priority based on the results is working 
 - [ ] Finalise the documentation
 - [ ] Start the field trial
 - [ ] Finalise the automatic test cases with collected field trial data
@@ -64,6 +65,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+# Pricing
+
+As soon as there is a working version you will find the corresponding plugin for download together with a comprehensive description on my [homepage](http://raphaelbossek.wordpress.com) for a trial period. The final version will be made public at [Atlassian Marketplace](https://marketplace.atlassian.com/) including technical support.
+
+All those who are familiar with software development techniques will have the ability to build this software for their own and deploy and use this software for free.
 
 # Let's Start Coding
 
