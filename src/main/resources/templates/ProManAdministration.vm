@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>$i18n.getText("org.raboss.dev.atlassian.jira.proman.name")</title>
+    <meta name="decorator" content="atl.general">
+<body>
+</head>
+<body>
+<!-- https://docs.atlassian.com/aui/latest/docs/page-content-layout.html -->
+<section id="content" role="main">
+    <div class="aui-page-panel">
+        <div class="aui-page-panel-inner">
+            <div class="aui-page-panel-nav">
+                <!-- content such as a vertical nav -->
+                <div class="aui-navgroup aui-navgroup-vertical">
+                    <div class="aui-navgroup-inner">
+                        <div class="aui-nav-heading">
+                            <strong>$i18n.getText("org.raboss.dev.atlassian.jira.proman.name")</strong>
+                        </div>
+                        <ul class="aui-nav" resolved="">
+                            <li #if($action.getActionName()=="ProManEvaluationCriteria")class="aui-nav-selected"><a href="#"#{else}><a href="ProManEvaluationCriteria.jspa"#end class="docs-nav-link" id="manage-evaluation-criteria-link">$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.manage_evaluation_criteria")</a></li>
+                            <li #if($action.getActionName()=="ProManPolls")class="aui-nav-selected"><a href="#"#{else}><a href="ProManPolls.jspa"#end class="docs-nav-link" id="manage-polls-link">$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.manage_polls")</a></li>
+                            <li #if($action.getActionName()=="ProManEvaluationCategories")class="aui-nav-selected"><a href="#"#{else}><a href="ProManEvaluationCategories.jspa"#end class="docs-nav-link" id="manage-evaluation-categories">$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.manage_evaluation_categories")</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <section class="aui-page-panel-content">
+                <!-- main area for content -->
+                #if($action.getActionName()=="ProManEvaluationCriteria")
+                    #parse("templates/AdminEvaluationCriteria.vm")
+                #elseif($action.getActionName()=="ProManPolls")
+                    #parse("templates/AdminPolls.vm")
+                #elseif($action.getActionName()=="ProManEvaluationCategories")
+                    #parse("templates/AdminEvaluationCategories.vm")
+                #end
+            </section>
+            <aside class="aui-page-panel-sidebar hidden">
+                <!-- tangental content here -->
+            </aside>
+        </div>
+    </div>
+</section>
+</body>
+</html>

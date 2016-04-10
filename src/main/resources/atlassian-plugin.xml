@@ -23,7 +23,7 @@
     </component>
 -->
     <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="org.raboss.dev.atlassian.jira.proman.ui.proman"/>
+    <resource type="i18n" name="loc" location="org/raboss/dev/atlassian/jira/proman/ui/proman" />
 
     <!-- add our web resources -->
     <web-resource key="proman-resources" name="proman Web Resources">
@@ -40,16 +40,62 @@
         <url-pattern>/proman/admin</url-pattern>
     </servlet>
 
-    <servlet key="admin-evaluation-criteria" class="org.raboss.dev.atlassian.jira.proman.ui.AdminEvaluationCriteria">
-        <url-pattern>/proman/evaluationcriteria</url-pattern>
+    <!--
+    <servlet key="admin-evaluation-criteria" class="org.raboss.dev.atlassian.jira.proman.ui.ProManAdministration        <url-pattern>/proman/evaluationcriteria</url-pattern>
     </servlet>
-
+    -->
     <!-- https://developer.atlassian.com/jiradev/jira-platform/building-jira-add-ons/jira-plugins2-overview/jira-plugin-module-types/webwork-plugin-module -->
     <webwork1 key="showcurrentuser" name="Show Current Users Project Permissions" class="java.lang.Object" roles-required="use">
         <actions>
             <action name="org.raboss.dev.atlassian.jira.proman.ui.ShowUsersProjectPermissionAction" alias="ShowUsersProjectPermissionAction">
                 <view name="success">templates/showprojects.vm</view>
                 <view name="error">templates/showprojects.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+    <webwork1 key="admin-proman" name="Administration" class="java.lang.Object">
+        <actions>
+            <!-- /secure/ProManAdministration.jspa -->
+            <action name="org.raboss.dev.atlassian.jira.proman.ui.ProManAdministration" alias="ProManAdministration">
+                <view name="success">/templates/ProManAdministration.vm</view>
+                <view name="error">/templates/ProManAdministration.vm</view>
+
+                <command name="evaluationCriteria" alias="EvaluationCriteria">
+                    <view name="success">/templates/ProManAdministration.vm</view>
+                    <view name="error">/templates/ProManAdministration.vm</view>
+                </command>
+                <command name="polls" alias="Polls">
+                    <view name="success">/templates/ProManAdministration.vm</view>
+                    <view name="error">/templates/ProManAdministration.vm</view>
+                </command>
+                <command name="evaluationCategories" alias="EvaluationCategories">
+                    <view name="success">/templates/ProManAdministration.vm</view>
+                    <view name="error">/templates/ProManAdministration.vm</view>
+                </command>
+            </action>
+        </actions>
+    </webwork1>
+    <webwork1 key="admin-proman-evaluation-criteria" class="java.lang.Object">
+        <actions>
+            <action name="org.raboss.dev.atlassian.jira.proman.ui.ProManEvaluationCriteria" alias="ProManEvaluationCriteria">
+                <view name="success">/templates/ProManAdministration.vm</view>
+                <view name="error">/templates/ProManAdministration.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+    <webwork1 key="admin-proman-polls" class="java.lang.Object">
+        <actions>
+            <action name="org.raboss.dev.atlassian.jira.proman.ui.ProManPolls" alias="ProManPolls">
+                <view name="success">/templates/ProManAdministration.vm</view>
+                <view name="error">/templates/ProManAdministration.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+    <webwork1 key="admin-proman-evaluation-categories" class="java.lang.Object">
+        <actions>
+            <action name="org.raboss.dev.atlassian.jira.proman.ui.ProManEvaluationCategories" alias="ProManEvaluationCategories">
+                <view name="success">/templates/ProManAdministration.vm</view>
+                <view name="error">/templates/ProManAdministration.vm</view>
             </action>
         </actions>
     </webwork1>
@@ -79,7 +125,7 @@
     <web-item key="proman-manage-evaluation-criteria" section="proman-menu/proman-manage" weight="201">
         <label key="org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criteria" />
         <tooltip key="org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criteria.tooltip" />
-        <link linkId="proman-manage-evaluation-criteria">/plugins/servlet/proman/evaluationcriteria</link>
+        <link linkId="proman-manage-evaluation-criteria">/secure/ProManAdministration.jspa</link>
     </web-item>
     <web-item key="proman-houseofquality" section="proman-menu/proman-manage" weight="202">
         <description>Das House of Quality (HoQ) ist die Visualisierung und das Symbol des Quality Function Deployment-Prozesses.</description>

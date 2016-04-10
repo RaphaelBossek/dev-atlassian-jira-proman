@@ -48,12 +48,18 @@ public class TopNavigationBarMenu implements WebItemProvider {
         final String baseUrl = requestContext.getBaseUrl();
         int weight = 102;
         links.add(new WebFragmentBuilder(weight++)
-                .id("proman-more-scoring-polls")
-                .label(i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.more_scoring_polls"))
-                .title(i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.more_scoring_polls.tooltip"))
-                .webItem("proman-menu/proman-scoring-polls")
-                .url(baseUrl + "/plugins/servlet/proman/admin")
-                .build());
+            .id("proman-more-scoring-polls")
+            .label(i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.more_scoring_polls"))
+            .title(i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.more_scoring_polls.tooltip"))
+            .webItem("proman-menu/proman-scoring-polls")
+            .url(baseUrl + "/plugins/servlet/proman/admin")
+            .build());
+        links.add(new WebFragmentBuilder(weight++)
+            .id("proman-show-users-project-permissions")
+            .label("ShowUsersProjectPermssions")
+            .webItem("proman-menu/ShowUsersProjectPermssions")
+            .url(baseUrl + "/secure/ShowUsersProjectPermissionAction.jspa?permission=create")
+            .build());
         return links;
     }
 }

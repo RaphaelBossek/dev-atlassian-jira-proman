@@ -1,9 +1,5 @@
-<html>
-<head>
-    <title>$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.manage_evaluation_criteria")</title>
-</head>
-<body>
-<form id="admin" class="aui" action="" method="POST">
+<!--
+<form id="admin" class="aui" action="#" method="POST">
     <div class="field-group">
         <label for="comment-email">Email
             <span class="aui-icon icon-required">(required)</span></label>
@@ -11,10 +7,32 @@
                id="comment-email" name="comment-email" placeholder="you@example.com">
         <div class="description">Your primary email address.</div>
     </div>
-
     <div class="field-group">
         <input type="submit" value="Save" class="button"></input>
     </div>
 </form>
-</body>
-</html>
+-->
+<table class="aui">
+    <thead>
+        <tr>
+            <th id="evaluation-criterion-name">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_name")</th>
+            <th id="evaluation-criterion-type">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_type")</th>
+            <th id="evaluation-criterion-usage">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_usage")</th>
+            <th id="evaluation-criterion-owner">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_owner")</th>
+            <th id="evaluation-criterion-comment">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_comment")</th>
+            <th id="evaluation-criterion-action">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_action")</th>
+        </tr>
+    </thead>
+    <tbody>
+        #foreach($ec in $action.getAllEvaluationCriteria())
+        <tr>
+            <td headers="evaluation-criterion-name">$ec.get("evaluation-criterion-name")</td>
+            <td headers="evaluation-criterion-type">$ec.get("evaluation-criterion-type")</td>
+            <td headers="evaluation-criterion-usage">$ec.get("evaluation-criterion-usage")</td>
+            <td headers="evaluation-criterion-owner">$ec.get("evaluation-criterion-owner")</td>
+            <td headers="evaluation-criterion-comment">$ec.get("evaluation-criterion-comment")</td>
+            <td headers="evaluation-criterion-action"><ul class="menu"><li>$ec.get("evaluation-criterion-action")</li><li>TODO</li></ul></td>
+        </tr>
+        #end
+    </tbody>
+</table>
