@@ -5,7 +5,7 @@ One of the core activities as [Software Product Manager (SPM)](http://community.
 This task is done by [Software Product Manager (SPM)](http://community.ispma.org/body-of-knowledge/) in cooperation with other professionals, e.g. development, marketing or sales, who contribute with their domain specific knowledge.
 
 One such tool is Demand Metric's [Business Strategy Prioritization Tool](http://www.demandmetric.com/content/business-strategy-prioritization-tool) which is done - of course, what else - in a spreadsheet.
-This approach is suitable for a small number of simple topics. If the complexity increases, especially if you start describing your ideas in [Portfolio Epics](http://www.scaledagileframework.com/epic/), as Osterwalder's [Business Model Canvas](http://www.businessmodelgeneration.com/canvas/bmc) and [Value Proposition Design](https://strategyzer.com/books/value-proposition-design) advice, things become hard to manage.
+This approach is suitable for a small number of simple topics. If the complexity increases, especially if you start describing your ideas in [Portfolio Epics](http://www.scaledagileframework.com/epic/), e.g. Osterwalder's [Business Model Canvas](http://www.businessmodelgeneration.com/canvas/bmc) and [Value Proposition Design](https://strategyzer.com/books/value-proposition-design), things become complicate.
 
 This project is dedicated for all those [Software Product Managers (SPM)](http://community.ispma.org/body-of-knowledge/) who uses [Atlassian JIRA project management software](https://atlassian.com/software/jira) and want to make their decision making process involving and transparent to their organisation, especially for their [Product Owners](http://www.scaledagileframework.com/product-owner/).
 
@@ -21,6 +21,7 @@ With this plugin for [Atlassian JIRA project management software](https://atlass
 Because it's a spare time software development project for me, things going slowly but consistent.
 
 A small and short overview about the project plan:
+
 - [x] Concept papers with maths, required software libraries and tools, database model, user interface finalised 
 - [x] Descriptive statistics examples with box plot are working in [Mathematica](http://mathematica.stackexchange.com/questions/102911/inverted-empirical-cdf-with-averaging-including-boxwhiskerchart)
 - [x] Development environment is working and version control system is up and running, including first sample code
@@ -31,10 +32,12 @@ A small and short overview about the project plan:
 - [ ] Analysing polls as [box plot](https://en.wikipedia.org/wiki/Box_plot) is working
 - [ ] Analysing polls as [Product Portfolio Matrix](https://en.wikipedia.org/wiki/Growth%E2%80%93share_matrix) is working
 - [ ] Automatic changing the ticket priority based on the results is working 
+- [ ] Implement [Add-on licensing](https://developer.atlassian.com/market/add-on-licensing-for-developers) and [Timebomb Licenses for Testing](https://developer.atlassian.com/market/add-on-licensing-for-developers/timebomb-licenses-for-testing)
 - [ ] Finalise the documentation
 - [ ] Start the field trial
 - [ ] Finalise the automatic test cases with collected field trial data
 - [ ] Publish the plugin to [Atlassian Marketplace](https://marketplace.atlassian.com/)
+- [ ] Go for [Atlassian Verified](https://developer.atlassian.com/market/programs-and-features/the-atlassian-verified-program) program badge
 
 # Pre-requirements
 
