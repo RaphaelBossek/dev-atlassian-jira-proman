@@ -4,9 +4,5 @@
         <version>${project.version}</version>
         <vendor name="${project.organization.name}" url="${project.organization.url}" />
     </plugin-info>
-
-    <!--
-    <component-import key="myComponent" interface="MyPluginComponent"/>
-    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
-    -->
 </atlassian-plugin>
+

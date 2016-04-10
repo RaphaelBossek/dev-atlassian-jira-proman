@@ -10,7 +10,6 @@ import org.junit.Test;
 
 public class ShowUsersProjectPermissionTest extends FuncTestCase
 {
-
     @Before
     public void setUpTest()
     {
