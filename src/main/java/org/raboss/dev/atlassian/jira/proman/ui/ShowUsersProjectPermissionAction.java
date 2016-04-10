@@ -14,6 +14,7 @@ import com.atlassian.sal.api.user.UserProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.util.Collection;
 
 /**
@@ -37,6 +38,7 @@ public class ShowUsersProjectPermissionAction extends JiraWebActionSupport
         log = LoggerFactory.getLogger(ShowUsersProjectPermissionAction.class);
     }
 
+    @Inject
     public ShowUsersProjectPermissionAction(PermissionManager permissionManager, UserManager userManager)
     {
         this.permissionManager = permissionManager;

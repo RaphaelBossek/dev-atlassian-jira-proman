@@ -130,17 +130,9 @@
             <scope>runtime</scope>
         </dependency>
         <!--
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.jdbc.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        -->
-        <!--
               Scope: test
         -->
-        <!-- WIRED TEST RUNNER DEPENDENCIES
+        <!-- WIRED TEST RUNNER DEPENDENCIES -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -165,25 +157,21 @@
             <version>${jira.version}</version>
             <scope>test</scope>
         </dependency>
-        -->
-        <!-- https://answers.atlassian.com/questions/23760817/jira-testkit-dependencies
+        <!-- Uncomment to use TestKit in your project. Details at https://bitbucket.org/atlassian/jira-testkit -->
+        <!-- You can read more about TestKit at https://developer.atlassian.com/display/JIRADEV/Plugin+Tutorial+-+Smarter+integration+testing+with+TestKit -->
+        <!-- https://answers.atlassian.com/questions/23760817/jira-testkit-dependencies -->
+        <dependency>
+            <groupId>com.atlassian.jira.tests</groupId>
+            <artifactId>jira-testkit-client</artifactId>
+            <version>${testkit.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
             <version>1.8-atlassian-8</version>
             <scope>test</scope>
         </dependency>
-        -->
-        <!-- Uncomment to use TestKit in your project. Details at https://bitbucket.org/atlassian/jira-testkit -->
-		<!-- You can read more about TestKit at https://developer.atlassian.com/display/JIRADEV/Plugin+Tutorial+-+Smarter+integration+testing+with+TestKit -->
-		<!--
-		<dependency>
-			<groupId>com.atlassian.jira.tests</groupId>
-			<artifactId>jira-testkit-client</artifactId>
-			<version>${testkit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		-->
     </dependencies>
 
     <build>
@@ -208,20 +196,19 @@
                     <productDataVersion>${jira.version}</productDataVersion>
                     <instanceId>${apms.default.instanceid}</instanceId>
                     <productDataPath>${project.basedir}/src/main/resources/${apms.default.instanceid}</productDataPath>
-					<!-- Uncomment to install TestKit backdoor in JIRA.
-					<pluginArtifacts>
-                        <pluginArtifact>
-							<groupId>com.atlassian.jira.tests</groupId>
-							<artifactId>jira-testkit-plugin</artifactId>
-							<version>${testkit.version}</version>
-						</pluginArtifact>
-                    </pluginArtifacts>
-                    -->
                     <enableQuickReload>true</enableQuickReload>
                     <enableFastdev>false</enableFastdev>
                     <!-- https://bitbucket.org/atlassian/atlassian-spring-scanner/src/1.2.x/README.md?at=1.2.x&fileviewer=file-view-default -->
                     <extractDependencies>false</extractDependencies>
                     <skipManifestValidation>true</skipManifestValidation>
+                    <!-- Uncomment to install TestKit backdoor in JIRA. -->
+                    <pluginArtifacts>
+                        <pluginArtifact>
+                            <groupId>com.atlassian.jira.tests</groupId>
+                            <artifactId>jira-testkit-plugin</artifactId>
+                            <version>${testkit.version}</version>
+                        </pluginArtifact>
+                    </pluginArtifacts>
                     <instructions>
                         <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
                         <!-- Ensure plugin is spring powered - see https://extranet.atlassian.com/x/xBS9hQ  -->
@@ -231,9 +218,9 @@
                             org.raboss.dev.atlassian.jira.proman.api,
                         </Export-Package>
                         <!-- Add package import here -->
-                        <!-- org.springframework.osgi.*;resolution:="optional",
-                        org.eclipse.gemini.blueprint.*;resolution:="optional", -->
                         <Import-Package>
+                            org.springframework.osgi.*;resolution:="optional",
+                            org.eclipse.gemini.blueprint.*;resolution:="optional",
                             com.atlassian.plugin.osgi.bridge.external,
                             *;resolution:=optional
                         </Import-Package>
@@ -265,7 +252,7 @@
                             </dataSources>
                         </product>
                     </products>
-                    <!-- https://developer.atlassian.com/docs/getting-started/writing-and-running-plugin-tests/create-and-run-traditional-integration-tests
+                    <!-- https://developer.atlassian.com/docs/getting-started/writing-and-running-plugin-tests/create-and-run-traditional-integration-tests -->
                     <testGroups>
                         <testGroup>
                             <id>jira-integration</id>
@@ -277,7 +264,6 @@
                             </includes>
                         </testGroup>
                     </testGroups>
-                    -->
                     <!-- https://developer.atlassian.com/docs/faq/writing-your-first-plugin-faq/using-your-own-log4j-configuration-for-your-plugin -->
                     <log4jProperties>src/aps/log4j.properties</log4jProperties>
                 </configuration>
@@ -298,7 +284,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <includeExclude>+com.atlassian.jira.plugins.issue.create.*</includeExclude>
                     <scannedDependencies>
                         <dependency>
                             <groupId>com.atlassian.plugin</groupId>
@@ -352,8 +337,8 @@
         <ognl.version>3.0.8</ognl.version>
         <!-- This key is used to keep the consistency between the key in atlassian-plugin.xml and the key to generate bundle. -->
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
-		<!-- TestKit version 6.x for JIRA 6.x -->
-		<testkit.version>6.4.12</testkit.version>
+        <!-- TestKit version 6.x for JIRA 6.x -->
+        <testkit.version>6.4.12</testkit.version>
         <!-- Tomcat7x -->
         <atlassian.tomcat.version>7.0.33</atlassian.tomcat.version>
         <!-- https://answers.atlassian.com/questions/33144650/which-version-of-sal-to-use-in-pom.xml-dependency-for-jira-7-development- -->

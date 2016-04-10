@@ -21,7 +21,6 @@ import java.util.Map;
 
 import com.atlassian.sal.api.user.UserManager;
 
-@Scanned
 public class AdminServlet extends javax.servlet.http.HttpServlet {
     private static final String PLUGIN_STORAGE_KEY = "org.raboss.dev.com.atlassian.jira.plugin.proman";
     private static final Logger log;

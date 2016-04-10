@@ -8,7 +8,7 @@ import org.raboss.dev.atlassian.jira.proman.api.MyPluginComponent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@ExportAsService ({MyPluginComponent.class})
+@ExportAsService({MyPluginComponent.class})
 @Named("myPluginComponent")
 public class MyPluginComponentImpl implements MyPluginComponent
 {

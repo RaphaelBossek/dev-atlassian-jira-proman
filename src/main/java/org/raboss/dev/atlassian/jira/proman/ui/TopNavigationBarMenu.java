@@ -4,6 +4,7 @@ import com.atlassian.jira.util.I18nHelper;
 import com.atlassian.jira.util.velocity.VelocityRequestContext;
 import com.atlassian.jira.util.velocity.VelocityRequestContextFactory;
 import com.atlassian.jira.web.bean.I18nBean;
+import com.atlassian.plugin.spring.scanner.annotation.component.ClasspathComponent;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.plugin.web.api.WebItem;
@@ -12,6 +13,7 @@ import com.atlassian.plugin.web.api.provider.WebItemProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,11 +35,13 @@ public class TopNavigationBarMenu implements WebItemProvider {
         log = LoggerFactory.getLogger(TopNavigationBarMenu.class);
     }
 
+    @Inject
     public TopNavigationBarMenu(VelocityRequestContextFactory velocityRequestContextFactory, I18nBean.BeanFactory beanFactory)
     {
         this.velocityRequestContextFactory = velocityRequestContextFactory;
         this.beanFactory = beanFactory;
     }
+
     public Iterable<WebItem> getItems(Map<String, Object> map) {
         log.info("getItems()");
         final List<WebItem> links = new ArrayList<WebItem>();

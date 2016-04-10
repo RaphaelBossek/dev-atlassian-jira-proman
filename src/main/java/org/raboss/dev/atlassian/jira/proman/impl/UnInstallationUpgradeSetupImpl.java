@@ -4,7 +4,9 @@ import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.event.api.EventListener;
 import com.atlassian.event.api.EventPublisher;
 import com.atlassian.plugin.event.events.PluginEnabledEvent;
+import com.atlassian.plugin.spring.scanner.annotation.component.ClasspathComponent;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
+import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.lifecycle.LifecycleAware;
 import com.atlassian.sal.api.lifecycle.LifecycleManager;
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.concurrent.GuardedBy;
 import javax.inject.Inject;
@@ -34,9 +37,14 @@ import java.util.Set;
  * https://bitbucket.org/cfuller/atlassian-scheduler-jira-example/src/371cbc419c5a4fa3197d4dc28ddeb21105718a43/src/main/java/com/atlassian/jira/plugins/example/scheduler/impl/AwesomeLauncher.java?at=master&fileviewer=file-view-default
  * https://docs.atlassian.com/sal-api/2.11.6/sal-api/apidocs/index.html?com/atlassian/sal/api/lifecycle/LifecycleAware.html
  * https://developer.atlassian.com/jiradev/jira-platform/building-jira-add-ons/jira-plugins2-overview/jira-plugin-lifecycle
+ *
+ * Note: This MUST be public and registered under the LifecycleAware interface to work!
+ * https://docs.atlassian.com/sal-api/2.11.6/sal-api/apidocs/com/atlassian/sal/api/lifecycle/LifecycleAware.html
+ *
+ * https://bitbucket.org/atlassian/atlassian-spring-scanner/src/1.2.x/README.md?at=1.2.x&fileviewer=file-view-default
  */
-@Scanned
-//@NamedMul({@Named("eventListener"), @Named("awesomeLauncher")})
+@ExportAsService
+@Component
 @Named("eventListener")
 public class UnInstallationUpgradeSetupImpl implements LifecycleAware, InitializingBean, DisposableBean
 {
@@ -46,7 +54,7 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
     @ComponentImport
     protected final EventPublisher eventPublisher;
     @ComponentImport
-    final LifecycleManager lifecycleManager;
+    protected final LifecycleManager lifecycleManager;
 
     static final private Logger log;
 
@@ -61,6 +69,7 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
         PLUGIN_ENABLED,
         LIFECYCLE_AWARE_ON_START
     }
+
     @GuardedBy("this")
     private final Set<LifecycleEvent> lifecycleEvents = EnumSet.noneOf(LifecycleEvent.class);
 
@@ -161,9 +170,8 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
     synchronized private boolean isLifecycleReady(LifecycleEvent event)
     {
         log.debug("lifecycleEvents.size() == {} ({})", lifecycleEvents.size()+1, LifecycleEvent.values().length);
-        return lifecycleEvents.add(event) && lifecycleEvents.size() == LifecycleEvent.values().length -1;
+        return lifecycleEvents.add(event) && lifecycleEvents.size() == LifecycleEvent.values().length;
     }
-
 
     /**
      * Do all the things we can't do before the system is fully up.

@@ -2,6 +2,7 @@ package org.raboss.dev.atlassian.jira.proman.ui;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.web.action.JiraWebActionSupport;
+import com.atlassian.plugin.spring.scanner.annotation.component.ClasspathComponent;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion1;
@@ -17,7 +18,11 @@ import java.util.List;
 import static org.bouncycastle.asn1.x500.style.RFC4519Style.l;
 
 /**
- * Created by bossekr on 09.04.16.
+ * Manage (create,copy,modify,delete) the evaluation criteria in the
+ * UI. Evaluation criteria can be e.g.
+ *  - Alignment with Company Goals: How aligned is this project to corporate goals & objectives?
+ *  - Revenue Potential: What is the anticipated impact on revenue for this initiative.
+ *  - Technical Risk: What is the probability of overcoming the technical challenges of the project?
  */
 @Scanned
 public class ProManEvaluationCriteria extends JiraWebActionSupport {
