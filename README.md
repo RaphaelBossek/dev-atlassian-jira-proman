@@ -68,9 +68,9 @@ SOFTWARE.
 
 # Pricing
 
-As soon as there is a working version you will find the corresponding plugin for download together with a comprehensive description on my [homepage](http://raphaelbossek.wordpress.com) for a trial period. The final version will be made public at [Atlassian Marketplace](https://marketplace.atlassian.com/) including technical support.
+As soon as there is a working version you will find the corresponding plugin for download together with a comprehensive description on my [homepage](http://raphaelbossek.wordpress.com) for a trial period. The final version will be made public at [Atlassian Marketplace](https://marketplace.atlassian.com/) including email support.
 
-All those who are familiar with software development techniques will have the ability to build this software for their own and deploy and use this software for free.
+All those who are familiar with software development techniques will have the ability to build this software for their own and deploy and use it for free including community support at [GitHub](https://github.com/RaphaelBossek/dev-atlassian-jira-proman/issues).
 
 # Let's Start Coding
 
