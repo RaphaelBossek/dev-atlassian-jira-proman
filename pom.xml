@@ -65,26 +65,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.atlassian.plugin</groupId>
-            <artifactId>atlassian-spring-scanner-annotation</artifactId>
-            <version>${atlassian.spring.scanner.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.atlassian.plugin</groupId>
-            <artifactId>atlassian-spring-scanner-runtime</artifactId>
-            <version>${atlassian.spring.scanner.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
@@ -120,17 +100,58 @@
             <version>${slffourj.logfourjtwelve.verion}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- WIRED TEST RUNNER DEPENDENCIES -->
         <dependency>
-            <groupId>com.atlassian.plugins</groupId>
-            <artifactId>atlassian-plugins-osgi-testrunner</artifactId>
-            <version>${plugin.testrunner.version}</version>
-            <scope>test</scope>
+            <groupId>com.atlassian.event</groupId>
+            <artifactId>atlassian-event</artifactId>
+            <version>${atlassian.event.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--
+              Scope: compile
+        -->
+        <dependency>
+            <groupId>com.atlassian.plugin</groupId>
+            <artifactId>atlassian-spring-scanner-annotation</artifactId>
+            <version>${atlassian.spring.scanner.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.2-atlassian-1</version>
+        </dependency>
+        <!--
+              Scope: runtime
+        -->
+        <dependency>
+            <groupId>com.atlassian.plugin</groupId>
+            <artifactId>atlassian-spring-scanner-runtime</artifactId>
+            <version>${atlassian.spring.scanner.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.jdbc.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        -->
+        <!--
+              Scope: test
+        -->
+        <!-- WIRED TEST RUNNER DEPENDENCIES
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-osgi-testrunner</artifactId>
+            <version>${plugin.testrunner.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.atlassian.jira</groupId>
@@ -144,19 +165,15 @@
             <version>${jira.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://answers.atlassian.com/questions/23760817/jira-testkit-dependencies -->
+        -->
+        <!-- https://answers.atlassian.com/questions/23760817/jira-testkit-dependencies
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
             <version>1.8-atlassian-8</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.atlassian.event</groupId>
-            <artifactId>atlassian-event</artifactId>
-            <version>${atlassian.event.version}</version>
-            <scope>provided</scope>
-        </dependency>
+        -->
         <!-- Uncomment to use TestKit in your project. Details at https://bitbucket.org/atlassian/jira-testkit -->
 		<!-- You can read more about TestKit at https://developer.atlassian.com/display/JIRADEV/Plugin+Tutorial+-+Smarter+integration+testing+with+TestKit -->
 		<!--
@@ -173,10 +190,10 @@
         <plugins>
             <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
+                <!-- https://developer.atlassian.com/docs/advanced-topics/working-with-maven/using-the-amps-maven-plugin-directly -->
                 <artifactId>maven-jira-plugin</artifactId>
                 <version>${amps.version}</version>
                 <extensions>true</extensions>
-                <!--
                 <executions>
                     <execution>
                         <phase>process-test-resources</phase>
@@ -185,50 +202,70 @@
                         </goals>
                     </execution>
                 </executions>
-                -->
                 <configuration>
                     <allowGoogleTracking>false</allowGoogleTracking>
                     <productVersion>${jira.version}</productVersion>
                     <productDataVersion>${jira.version}</productDataVersion>
-					<!-- Uncomment to install TestKit backdoor in JIRA. -->
+                    <instanceId>${apms.default.instanceid}</instanceId>
+                    <productDataPath>${project.basedir}/src/main/resources/${apms.default.instanceid}</productDataPath>
+					<!-- Uncomment to install TestKit backdoor in JIRA.
 					<pluginArtifacts>
-						<pluginArtifact>
+                        <pluginArtifact>
 							<groupId>com.atlassian.jira.tests</groupId>
 							<artifactId>jira-testkit-plugin</artifactId>
 							<version>${testkit.version}</version>
 						</pluginArtifact>
-					</pluginArtifacts>
+                    </pluginArtifacts>
+                    -->
                     <enableQuickReload>true</enableQuickReload>
                     <enableFastdev>false</enableFastdev>
+                    <!-- https://bitbucket.org/atlassian/atlassian-spring-scanner/src/1.2.x/README.md?at=1.2.x&fileviewer=file-view-default -->
+                    <extractDependencies>false</extractDependencies>
+                    <skipManifestValidation>true</skipManifestValidation>
                     <instructions>
                         <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
-
+                        <!-- Ensure plugin is spring powered - see https://extranet.atlassian.com/x/xBS9hQ  -->
+                        <Spring-Context>*</Spring-Context>
                         <!-- Add package to export here -->
                         <Export-Package>
                             org.raboss.dev.atlassian.jira.proman.api,
                         </Export-Package>
-
                         <!-- Add package import here -->
+                        <!-- org.springframework.osgi.*;resolution:="optional",
+                        org.eclipse.gemini.blueprint.*;resolution:="optional", -->
                         <Import-Package>
-                            org.springframework.osgi.*;resolution:="optional",
-                            org.eclipse.gemini.blueprint.*;resolution:="optional",
-                            *
+                            com.atlassian.plugin.osgi.bridge.external,
+                            *;resolution:=optional
                         </Import-Package>
-
-                        <!-- Ensure plugin is spring powered - see https://extranet.atlassian.com/x/xBS9hQ  -->
-                        <Spring-Context>*</Spring-Context>
                     </instructions>
-                    <!--
                     <products>
+                        <!-- https://answers.atlassian.com/questions/11337/answers/3588871 -->
                         <product>
                             <id>jira</id>
-                            <instanceId>jiraExpected</instanceId>
-                            <productVersion>${jira.version}</productVersion>
-                            <productDataVersion>${jira.version}</productDataVersion>
+                            <instanceId>instance-postgres</instanceId>
+                            <version>${jira.version}</version>
+                            <!-- <dataVersion>${jira.version}</dataVersion> -->
+                            <dataPath>${project.basedir}/backup/last_instance-postgres/generated-test-resources.zip</dataPath>
+                            <dataSources>
+                                <dataSource>
+                                    <jndi>jdbc/DefaultDS</jndi>
+                                    <url>jdbc:postgresql://localhost:5432/jira-amps</url>
+                                    <driver>org.postgresql.Driver</driver>
+                                    <username>jira-amps</username>
+                                    <password>jira-amps</password>
+                                    <schema>public</schema>
+                                    <libArtifacts>
+                                        <libArtifact>
+                                            <groupId>org.postgresql</groupId>
+                                            <artifactId>postgresql</artifactId>
+                                            <version>${postgresql.jdbc.version}</version>
+                                        </libArtifact>
+                                    </libArtifacts>
+                                </dataSource>
+                            </dataSources>
                         </product>
                     </products>
-                    -->
-                    <!-- https://developer.atlassian.com/docs/getting-started/writing-and-running-plugin-tests/create-and-run-traditional-integration-tests -->
+                    <!-- https://developer.atlassian.com/docs/getting-started/writing-and-running-plugin-tests/create-and-run-traditional-integration-tests
                     <testGroups>
                         <testGroup>
                             <id>jira-integration</id>
@@ -240,11 +277,12 @@
                             </includes>
                         </testGroup>
                     </testGroups>
+                    -->
                     <!-- https://developer.atlassian.com/docs/faq/writing-your-first-plugin-faq/using-your-own-log4j-configuration-for-your-plugin -->
                     <log4jProperties>src/aps/log4j.properties</log4jProperties>
                 </configuration>
             </plugin>
-
+            <!-- https://bitbucket.org/atlassian/atlassian-spring-scanner/src/1.2.x/README.md?at=1.2.x&fileviewer=file-view-default -->
             <plugin>
                 <groupId>com.atlassian.plugin</groupId>
                 <artifactId>atlassian-spring-scanner-maven-plugin</artifactId>
@@ -254,17 +292,20 @@
                         <goals>
                             <goal>atlassian-spring-scanner</goal>
                         </goals>
+                        <!-- process-classes seems to be skipped if you are using scala
+                             so perhaps use prepare-package -->
                         <phase>process-classes</phase>
                     </execution>
                 </executions>
                 <configuration>
+                    <includeExclude>+com.atlassian.jira.plugins.issue.create.*</includeExclude>
                     <scannedDependencies>
                         <dependency>
                             <groupId>com.atlassian.plugin</groupId>
                             <artifactId>atlassian-spring-scanner-external-jar</artifactId>
                         </dependency>
                     </scannedDependencies>
-                    <verbose>false</verbose>
+                    <verbose>true</verbose>
                 </configuration>
             </plugin>
 
@@ -277,15 +318,16 @@
                         <configuration>
                             <tasks>
                                 <!-- Required by the test database -->
-                                <mkdir dir="${project.basedir}/target/jira/indexes"/>
-                                <mkdir dir="${project.basedir}/target/jira/attachments"/>
-                                <mkdir dir="${project.basedir}/target/jira/backups"/>
+                                <mkdir dir="${project.basedir}/target/${apms.default.instanceid}/indexes"/>
+                                <mkdir dir="${project.basedir}/target/${apms.default.instanceid}/attachments"/>
+                                <mkdir dir="${project.basedir}/target/${apms.default.instanceid}/backups"/>
                             </tasks>
                         </configuration>
                         <goals><goal>run</goal></goals>
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -319,5 +361,7 @@
         <spring.core.version>2.5.6.SEC01</spring.core.version>
         <spirng.security.core.version>3.1.0.RELEASE</spirng.security.core.version>
         <slffourj.logfourjtwelve.verion>1.7.9</slffourj.logfourjtwelve.verion>
+        <postgresql.jdbc.version>9.4.1208</postgresql.jdbc.version>
+        <apms.default.instanceid>instance-postgres</apms.default.instanceid>
     </properties>
 </project>
