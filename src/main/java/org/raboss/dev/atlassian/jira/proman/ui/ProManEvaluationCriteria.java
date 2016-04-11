@@ -5,6 +5,7 @@ import com.atlassian.jira.web.action.JiraWebActionSupport;
 import com.atlassian.plugin.spring.scanner.annotation.component.ClasspathComponent;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import net.java.ao.Query;
 import org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,16 +47,29 @@ public class ProManEvaluationCriteria extends JiraWebActionSupport {
         return SUCCESS;
     }
 
+    /**
+     * TODO: Definition of maximum number of evaluation criteria depending on the license
+     * TODO: Definition of maximum number of evaluation criteria per page
+     * TODO: Paging between lists of evaluation criteria
+     * @return
+     */
     public List<HashMap<String,String>> getAllEvaluationCriteria() {
+        List<HashMap<String,String>> l = new ArrayList<HashMap<String,String>>();
         log.debug("getAllEvaluationCriteria()");
-        EvalCriterion1[] ecs = activeObjects.get(EvalCriterion1.class);
+        EvalCriterion1[] ecs = activeObjects.find(EvalCriterion1.class, Query.select().limit(25));
         if(ecs.length != 0) {
             for(EvalCriterion1 ec : ecs) {
                 log.debug("name:{}, type:{}, comment:{}", ec.getName(), ec.getTypeOfIndex().toString(), ec.getComment());
+                HashMap<String,String> kw = new HashMap<String, String>();
+                kw.put("evaluation-criterion-name", ec.getName());
+                kw.put("evaluation-criterion-type", ec.getTypeOfIndex().toString());
+                kw.put("evaluation-criterion-usage", "");
+                kw.put("evaluation-criterion-owner", "");
+                kw.put("evaluation-criterion-comment", ec.getComment());
+                kw.put("evaluation-criterion-action", "");
+                l.add(kw);
             }
         }
-        List<HashMap<String,String>> l = new ArrayList<HashMap<String,String>>();
-        l.add(new HashMap<String,String>());
         return l;
     }
 }
