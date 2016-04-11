@@ -4,13 +4,12 @@ import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.event.api.EventListener;
 import com.atlassian.event.api.EventPublisher;
 import com.atlassian.plugin.event.events.PluginEnabledEvent;
-import com.atlassian.plugin.spring.scanner.annotation.component.ClasspathComponent;
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.lifecycle.LifecycleAware;
 import com.atlassian.sal.api.lifecycle.LifecycleManager;
-//import com.atlassian.sal.jira.lifecycle.JiraLifecycleManager;
+import com.atlassian.sal.api.transaction.TransactionCallback;
+import net.java.ao.Query;
 import org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -211,81 +210,88 @@ public class UnInstallationUpgradeSetupImpl implements LifecycleAware, Initializ
     {
         log.info("initActiveObjects()");
         activeObjects.flushAll();
-        EvalCriterion1[] ecs = activeObjects.get(EvalCriterion1.class);
-        if (ecs.length == 0)
-        {
-            log.debug("Create ActiveObjects for proman");
-            // Strategic Fit
-            EvalCriterion1 ec = activeObjects.create(EvalCriterion1.class);
-            ec.setName("Alignment with Company Goals");
-            ec.setComment("How aligned is this project to corporate goals & objectives?");
-            ec.setWeighting(15);
-            ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
-            ec.setIsBigNumberIsBetter(true);
-            ec.save();
-            ec = activeObjects.create(EvalCriterion1.class);
-            ec.setName("Market Positioning");
-            ec.setComment("Does this initiative position us better in the market?");
-            ec.setWeighting(20);
-            ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
-            ec.setIsBigNumberIsBetter(true);
-            ec.save();
-            ec = activeObjects.create(EvalCriterion1.class);
-            ec.setName("Core Capabilities");
-            ec.setComment("Does this initiative leverage our core capabilities (technology, operations, sales)?");
-            ec.setWeighting(5);
-            ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
-            ec.setIsBigNumberIsBetter(true);
-            ec.save();
-            // Economical Impact
-            ec = activeObjects.create(EvalCriterion1.class);
-            ec.setName("Revenue Potential");
-            ec.setComment("What is the anticipated impact on revenue for this initiative.");
-            ec.setWeighting(15);
-            ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
-            ec.setIsBigNumberIsBetter(true);
-            ec.save();
-            ec = activeObjects.create(EvalCriterion1.class);
-            ec.setName("Cost/Benefit");
-            ec.setComment("Does this initiative have a solid cost/benefit?");
-            ec.setWeighting(20);
-            ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
-            ec.setIsBigNumberIsBetter(true);
-            ec.save();
-            ec = activeObjects.create(EvalCriterion1.class);
-            ec.setName("Low Cost");
-            ec.setComment("Is this project relatively low-cost?");
-            ec.setWeighting(5);
-            ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
-            ec.setIsBigNumberIsBetter(true);
-            ec.save();
-            // Feasibility
-            ec = activeObjects.create(EvalCriterion1.class);
-            ec.setName("Technical Risk");
-            ec.setComment("What is the probability of overcoming the technical challenges of the project?");
-            ec.setWeighting(10);
-            ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
-            ec.setIsBigNumberIsBetter(true);
-            ec.save();
-            ec = activeObjects.create(EvalCriterion1.class);
-            ec.setName("Resources - Financial");
-            ec.setComment("Do we have the financial resources to execute this initiative?");
-            ec.setWeighting(5);
-            ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
-            ec.setIsBigNumberIsBetter(true);
-            ec.save();
-            ec = activeObjects.create(EvalCriterion1.class);
-            ec.setName("Resources - People");
-            ec.setComment("Do we have the skills & bandwidth to execute this initiative?");
-            ec.setWeighting(5);
-            ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
-            ec.setIsBigNumberIsBetter(true);
-            ec.save();
-            ecs = activeObjects.get(EvalCriterion1.class);
-        }
-        for(EvalCriterion1 ec : ecs)
-        {
-            log.debug("ec.Name={}", ec.getName());
-        }
+
+        activeObjects.executeInTransaction(new TransactionCallback<Void>() {
+            @Override
+            public Void doInTransaction() {
+                EvalCriterion1[] ecs = activeObjects.find(EvalCriterion1.class, Query.select().limit(10));
+                if (ecs.length == 0)
+                {
+                    log.debug("Create ActiveObjects for proman");
+                    // Strategic Fit
+                    EvalCriterion1 ec = activeObjects.create(EvalCriterion1.class);
+                    ec.setName("Alignment with Company Goals");
+                    ec.setComment("How aligned is this project to corporate goals & objectives?");
+                    ec.setWeighting(15);
+                    ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
+                    ec.setIsBigNumberIsBetter(true);
+                    ec.save();
+                    ec = activeObjects.create(EvalCriterion1.class);
+                    ec.setName("Market Positioning");
+                    ec.setComment("Does this initiative position us better in the market?");
+                    ec.setWeighting(20);
+                    ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
+                    ec.setIsBigNumberIsBetter(true);
+                    ec.save();
+                    ec = activeObjects.create(EvalCriterion1.class);
+                    ec.setName("Core Capabilities");
+                    ec.setComment("Does this initiative leverage our core capabilities (technology, operations, sales)?");
+                    ec.setWeighting(5);
+                    ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
+                    ec.setIsBigNumberIsBetter(true);
+                    ec.save();
+                    // Economical Impact
+                    ec = activeObjects.create(EvalCriterion1.class);
+                    ec.setName("Revenue Potential");
+                    ec.setComment("What is the anticipated impact on revenue for this initiative.");
+                    ec.setWeighting(15);
+                    ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
+                    ec.setIsBigNumberIsBetter(true);
+                    ec.save();
+                    ec = activeObjects.create(EvalCriterion1.class);
+                    ec.setName("Cost/Benefit");
+                    ec.setComment("Does this initiative have a solid cost/benefit?");
+                    ec.setWeighting(20);
+                    ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
+                    ec.setIsBigNumberIsBetter(true);
+                    ec.save();
+                    ec = activeObjects.create(EvalCriterion1.class);
+                    ec.setName("Low Cost");
+                    ec.setComment("Is this project relatively low-cost?");
+                    ec.setWeighting(5);
+                    ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
+                    ec.setIsBigNumberIsBetter(true);
+                    ec.save();
+                    // Feasibility
+                    ec = activeObjects.create(EvalCriterion1.class);
+                    ec.setName("Technical Risk");
+                    ec.setComment("What is the probability of overcoming the technical challenges of the project?");
+                    ec.setWeighting(10);
+                    ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
+                    ec.setIsBigNumberIsBetter(true);
+                    ec.save();
+                    ec = activeObjects.create(EvalCriterion1.class);
+                    ec.setName("Resources - Financial");
+                    ec.setComment("Do we have the financial resources to execute this initiative?");
+                    ec.setWeighting(5);
+                    ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
+                    ec.setIsBigNumberIsBetter(true);
+                    ec.save();
+                    ec = activeObjects.create(EvalCriterion1.class);
+                    ec.setName("Resources - People");
+                    ec.setComment("Do we have the skills & bandwidth to execute this initiative?");
+                    ec.setWeighting(5);
+                    ec.setTypeOfIndex(EvalCriterion1.TypeOfIndex.PERCENTAGE);
+                    ec.setIsBigNumberIsBetter(true);
+                    ec.save();
+                    ecs = activeObjects.find(EvalCriterion1.class);
+                }
+                for(EvalCriterion1 ec : ecs)
+                {
+                    log.debug("ec.Name={}, weighting={}", ec.getName(), ec.getWeighting());
+                }
+                return null;
+            }
+        });
     }
 }
