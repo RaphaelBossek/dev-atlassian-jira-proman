@@ -7,7 +7,7 @@ import net.java.ao.*;
  * p.407
  */
 @Preload
-public interface EvalCriterion1 extends Entity {
+public interface EvalCriterion extends Entity {
     public String getName();
     public void setName(String name);
 
