@@ -20,7 +20,7 @@
             <th id="evaluation-criterion-usage">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_usage")</th>
             <th id="evaluation-criterion-owner">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_owner")</th>
             <th id="evaluation-criterion-comment">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_comment")</th>
-            <th id="evaluation-criterion-action">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_action")</th>
+            <th id="evaluation-criterion-operation">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operations")</th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +31,11 @@
             <td headers="evaluation-criterion-usage">$ec.get("evaluation-criterion-usage")</td>
             <td headers="evaluation-criterion-owner">$ec.get("evaluation-criterion-owner")</td>
             <td headers="evaluation-criterion-comment">$ec.get("evaluation-criterion-comment")</td>
-            <td headers="evaluation-criterion-action"><ul class="menu"><li>$ec.get("evaluation-criterion-action")</li><li>TODO</li></ul></td>
+            <td headers="evaluation-criterion-operation"><ul class="operations-list">
+                #if($ec.get("evaluation-criterion-operation-edit") == "on")<li><a id="edit" href="ProManEvaluationCriteria!edit.jspa?id=$ec.get("evaluation-criterion-id")" description="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_edit_description")">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_edit")</a></li>#end
+                #if($ec.get("evaluation-criterion-operation-copy") == "on")<li><a id="copy" href="ProManEvaluationCriteria!copy.jspa?id=$ec.get("evaluation-criterion-id")" description="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_copy_description")">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_copy")</a></li>#end
+                #if($ec.get("evaluation-criterion-operation-delete") == "on")<li><a id="delete" href="ProManEvaluationCriteria!delete.jspa?id=$ec.get("evaluation-criterion-id")" description="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_delete_description")">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_delete")</a></li>#end
+            </ul></td>
         </tr>
         #end
     </tbody>

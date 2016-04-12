@@ -57,12 +57,15 @@ public class ProManEvaluationCriteria extends JiraWebActionSupport {
             for(EvalCriterion ec : ecs) {
                 log.debug("name:{}, type:{}, comment:{}", ec.getName(), ec.getTypeOfIndex().toString(), ec.getComment());
                 HashMap<String,String> kw = new HashMap<String, String>();
+                kw.put("evaluation-criterion-id", String.valueOf(ec.getID()));
                 kw.put("evaluation-criterion-name", ec.getName());
                 kw.put("evaluation-criterion-type", ec.getTypeOfIndex().toString());
                 kw.put("evaluation-criterion-usage", "");
                 kw.put("evaluation-criterion-owner", "");
                 kw.put("evaluation-criterion-comment", ec.getComment());
-                kw.put("evaluation-criterion-action", "");
+                kw.put("evaluation-criterion-operation-edit", "on");
+                kw.put("evaluation-criterion-operation-copy", "on");
+                kw.put("evaluation-criterion-operation-delete", "on");
                 l.add(kw);
             }
         }
