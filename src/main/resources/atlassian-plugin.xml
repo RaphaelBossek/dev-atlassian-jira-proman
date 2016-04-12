@@ -7,9 +7,9 @@
         <param name="plugin-logo">images/pluginLogo.png</param>
     </plugin-info>
 
-    <ao key="ao-module">
+    <ao key="ao-proman" namespace="org.raboss.dev.atlassian.jira.proman">
         <description>Awesome active objects entity</description>
-        <entity>org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion1</entity>
+        <entity>org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion</entity>
     </ao>
 
     <!-- add our i18n resource -->

@@ -2,21 +2,17 @@ package org.raboss.dev.atlassian.jira.proman.ui;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.web.action.JiraWebActionSupport;
-import com.atlassian.plugin.spring.scanner.annotation.component.ClasspathComponent;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import net.java.ao.Query;
-import org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion1;
+import org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.l;
 
 /**
  * Manage (create,copy,modify,delete) the evaluation criteria in the
@@ -56,9 +52,9 @@ public class ProManEvaluationCriteria extends JiraWebActionSupport {
     public List<HashMap<String,String>> getAllEvaluationCriteria() {
         List<HashMap<String,String>> l = new ArrayList<HashMap<String,String>>();
         log.debug("getAllEvaluationCriteria()");
-        EvalCriterion1[] ecs = activeObjects.find(EvalCriterion1.class, Query.select().limit(25));
+        EvalCriterion[] ecs = activeObjects.find(EvalCriterion.class, Query.select().limit(25));
         if(ecs.length != 0) {
-            for(EvalCriterion1 ec : ecs) {
+            for(EvalCriterion ec : ecs) {
                 log.debug("name:{}, type:{}, comment:{}", ec.getName(), ec.getTypeOfIndex().toString(), ec.getComment());
                 HashMap<String,String> kw = new HashMap<String, String>();
                 kw.put("evaluation-criterion-name", ec.getName());

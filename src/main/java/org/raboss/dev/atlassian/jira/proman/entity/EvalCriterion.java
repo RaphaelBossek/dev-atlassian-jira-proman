@@ -1,12 +1,14 @@
 package org.raboss.dev.atlassian.jira.proman.entity;
 
 import net.java.ao.*;
+import net.java.ao.schema.Table;
 
 /**
  * Created by bossekr on 08.03.16.
  * p.407
  */
 @Preload
+@Table("EvalCriterion")
 public interface EvalCriterion extends Entity {
     public String getName();
     public void setName(String name);
