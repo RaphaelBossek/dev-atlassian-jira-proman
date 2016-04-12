@@ -232,7 +232,7 @@
                             <instanceId>instance-postgres</instanceId>
                             <version>${jira.version}</version>
                             <!-- <dataVersion>${jira.version}</dataVersion> -->
-                            <dataPath>${project.basedir}/backup/last_instance-postgres/generated-test-resources.zip</dataPath>
+                            <!-- <dataPath>${project.basedir}/backup/last_instance-postgres/generated-test-resources.zip</dataPath> -->
                             <dataSources>
                                 <dataSource>
                                     <jndi>jdbc/DefaultDS</jndi>
