@@ -71,6 +71,10 @@
                 <view name="success">/templates/ProManAdministration.vm</view>
                 <view name="error">/templates/ProManAdministration.vm</view>
             </action>
+            <command name="createEvaluationCriteria" alias="CreateEvaluationCriteria">
+                <view name="success">/templates/ProManAdministration.vm</view>
+                <view name="error">/templates/ProManAdministration.vm</view>
+            </command>
         </actions>
     </webwork1>
     <webwork1 key="admin-proman-polls" class="java.lang.Object">
