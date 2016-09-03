@@ -1,0 +1,9 @@
+table.aui.tablesorter thead tr th.tablesorter-header {
+    cursor: pointer;
+    color: #707070;
+    white-space: nowrap;
+}
+table.aui.tablesorter thead tr th.tablesorter-header-dont-consider {
+    color: #707070;
+    white-space: nowrap;
+}

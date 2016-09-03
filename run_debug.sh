@@ -2,9 +2,10 @@
 set -e
 instance="instance-postgres"
 #atlas-clean
-find target -name "proman-*" -exec rm -rf {} \;
+find target -name "proman-*" -exec rm -rf {} \; || true
 rm -rf target/classes
-atlas-debug --version 6.4.12 --product jira --instanceId $instance -DskipTests=true $* 2>&1|tee atlas-debug.log
+# -Datlassian.webresource.disable.minification=true
+atlas-debug --version 6.4.12 --product jira -DskipTests=true -Dmaven.test.skip=true --instanceId $instance $* 2>&1|tee atlas-debug.log
 atlas-create-home-zip
 d=`date "+%Y%m%d-%H%M%S"`_$instance
 b=backup/$d

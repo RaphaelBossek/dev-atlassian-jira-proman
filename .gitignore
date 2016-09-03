@@ -16,3 +16,6 @@ backup/
 target/
 .idea/
 *.iml
+
+# Test results
+atlas-debug.log

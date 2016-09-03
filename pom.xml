@@ -106,6 +106,12 @@
             <version>${atlassian.event.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>2.5.6.SEC01</version>
+            <scope>provided</scope>
+        </dependency>
         <!--
               Scope: compile
         -->
@@ -198,6 +204,7 @@
                     <productDataPath>${project.basedir}/src/main/resources/${apms.default.instanceid}</productDataPath>
                     <enableQuickReload>true</enableQuickReload>
                     <enableFastdev>false</enableFastdev>
+                    <compressResources>false</compressResources>
                     <!-- https://bitbucket.org/atlassian/atlassian-spring-scanner/src/1.2.x/README.md?at=1.2.x&fileviewer=file-view-default -->
                     <extractDependencies>false</extractDependencies>
                     <skipManifestValidation>true</skipManifestValidation>
@@ -318,8 +325,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <source>1.6</source>
+                    <source>1.7</source>
                     <target>1.8</target>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                    <compilerArgument>-Xlint:deprecation</compilerArgument>
                 </configuration>
             </plugin>
         </plugins>
@@ -331,6 +340,7 @@
         <jira.templaterenderer.version>1.5.6</jira.templaterenderer.version>
         <activeObjects.version>0.28.7</activeObjects.version>
         <atlassian.event.version>2.3.5</atlassian.event.version>
+        <atlassian.rest.version>2.9.24</atlassian.rest.version>
         <amps.version>6.2.1</amps.version>
         <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
         <atlassian.spring.scanner.version>1.2.6</atlassian.spring.scanner.version>
@@ -348,5 +358,6 @@
         <slffourj.logfourjtwelve.verion>1.7.9</slffourj.logfourjtwelve.verion>
         <postgresql.jdbc.version>9.4.1208</postgresql.jdbc.version>
         <apms.default.instanceid>instance-postgres</apms.default.instanceid>
+        <jackson.version>1.9.1</jackson.version>
     </properties>
 </project>

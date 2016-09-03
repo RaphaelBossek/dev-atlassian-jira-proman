@@ -9,26 +9,28 @@
 
     <ao key="ao-proman" namespace="org.raboss.dev.atlassian.jira.proman">
         <description>Awesome active objects entity</description>
-        <entity>org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion</entity>
+        <entity>org.raboss.dev.atlassian.jira.proman.entity.EvaluationCriterion</entity>
     </ao>
 
     <!-- add our i18n resource -->
     <resource type="i18n" name="loc" location="org/raboss/dev/atlassian/jira/proman/ui/proman" />
 
     <!-- add our web resources -->
-    <web-resource key="proman-resources" name="proman Web Resources">
+    <web-resource key="administration" name="ProMan Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
-
-        <resource type="download" name="proman.css" location="/css/proman.css"/>
-        <resource type="download" name="proman.js" location="/js/proman.js"/>
-        <resource type="download" name="images/" location="/images"/>
-
-        <context>proman</context>
+        <dependency>com.atlassian.auiplugin:dialog2</dependency>
+        <resource type="download" name="jquery.typewatch.js" location="/js/jquery.typewatch.js" />
+        <resource type="download" name="URI.min.js" location="/js/URI.min.js" />
+        <resource type="download" name="proman.tablesorter.css" location="/css/proman.tablesorter.css" />
     </web-resource>
 
     <servlet key="admin-sevlet" class="org.raboss.dev.atlassian.jira.proman.ui.AdminServlet">
         <url-pattern>/proman/admin</url-pattern>
     </servlet>
+
+    <rest i18n-name-key="org.raboss.dev.atlassian.jira.proman.name" key="org-raboss-dev-atlassian-jira-proman-api-rest" path="/org.raboss.dev.atlassian.jira.proman" version="1">
+        <description key="org.raboss.dev.atlassian.jira.proman.name" />
+    </rest>
 
     <!--
     <servlet key="admin-evaluation-criteria" class="org.raboss.dev.atlassian.jira.proman.ui.ProManAdministration        <url-pattern>/proman/evaluationcriteria</url-pattern>
@@ -59,6 +61,19 @@
                     <view name="error">/templates/ProManAdministration.vm</view>
                 </command>
                 <command name="evaluationCategories" alias="EvaluationCategories">
+                    <view name="success">/templates/ProManAdministration.vm</view>
+                    <view name="error">/templates/ProManAdministration.vm</view>
+                </command>
+                <!-- AdminEvalutionCriteria.vm -->
+                <command name="editEvaluationCriterion" alias="editEvaluationCriterion">
+                    <view name="success">/templates/ProManAdministration.vm</view>
+                    <view name="error">/templates/ProManAdministration.vm</view>
+                </command>
+                <command name="copyEvaluationCriterion" alias="editEvaluationCriterion">
+                    <view name="success">/templates/ProManAdministration.vm</view>
+                    <view name="error">/templates/ProManAdministration.vm</view>
+                </command>
+                <command name="deleteEvaluationCriterion" alias="editEvaluationCriterion">
                     <view name="success">/templates/ProManAdministration.vm</view>
                     <view name="error">/templates/ProManAdministration.vm</view>
                 </command>
@@ -93,6 +108,11 @@
             </action>
         </actions>
     </webwork1>
+
+    <!-- RESTful services -->
+    <rest key="admin-proman-administration" i18n-name-key="org.raboss.dev.atlassian.jira.proman.rest.administration.name" path="/proman" version="1.0">
+        <description key="org.raboss.dev.atlassian.jira.proman.rest.administration.description">ProMan REST API Administration: Create/Read/Update/Delete of evaulation criteria and polls</description>
+    </rest>
 
     <!-- Menu -->
     <!-- https://developer.atlassian.com/docs/getting-started/plugin-modules/web-item-plugin-module -->

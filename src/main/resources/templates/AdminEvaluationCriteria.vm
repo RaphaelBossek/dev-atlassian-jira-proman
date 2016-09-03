@@ -1,42 +1,463 @@
-<!--
-<form id="admin" class="aui" action="#" method="POST">
-    <div class="field-group">
-        <label for="comment-email">Email
-            <span class="aui-icon icon-required">(required)</span></label>
-        <input class="text medium-field" type="text"
-               id="comment-email" name="comment-email" placeholder="you@example.com">
-        <div class="description">Your primary email address.</div>
-    </div>
-    <div class="field-group">
-        <input type="submit" value="Save" class="button"></input>
-    </div>
+<form id="evaluation_cretrion_filter" class="aui aui-toolbar2" onsubmit="return false;">
+    <ul class="criteria-list aui-nav-actions-list">
+        <li>
+            <input class="search-entry text ajs-dirty-warning-exempt" type="text" id="evaluation_criterion_quickfilter_input" name="quickfilter" placeholder="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.quicksearch")..." value=""></input>
+        </li>
+        <li>
+            <!-- span class="aui-icon aui-icon-small aui-iconfont-search-small" id="evaluation_criterion_filter_submit"></span -->
+            <button class="aui-button aui-button-subtle search-button" id="evaluation_criterion_filter_submit" type="button" original-title="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.quicksearch")"><span class="aui-icon aui-icon-small aui-iconfont-search">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.quicksearch")</span></button>
+        </li>
+        <li>
+            <input class="checkbox" type="checkbox" name="name" id="evaluation_criterion_filter_name_checkbox" checked="checked" />
+            <label for="name">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_name")</label>
+        </li>
+        <li>
+            <input class="checkbox" type="checkbox" name="comment" id="evaluation_criterion_filter_comment_checkbox" checked="checked" />
+            <label for="name">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_comment")</label>
+        </li>
+    </ul>
 </form>
--->
-<table class="aui">
+<div id="pagination_info" class="aui-group aui-group-split issue-table-info-bar"></div>
+<table class="aui tablesorter" id="evaluation_criterion_table">
     <thead>
         <tr>
-            <th id="evaluation-criterion-name">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_name")</th>
-            <th id="evaluation-criterion-type">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_type")</th>
-            <th id="evaluation-criterion-usage">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_usage")</th>
-            <th id="evaluation-criterion-owner">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_owner")</th>
-            <th id="evaluation-criterion-comment">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_comment")</th>
-            <th id="evaluation-criterion-operation">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operations")</th>
+            <th id="evaluation_criterion_name" class="tablesorter-header" tablesorter-data="name"><span>$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_name")</span><span class="aui-icon aui-icon-small"></span></th>
+            <th id="evaluation_criterion_weighting" class="tablesorter-header" tablesorter-data="weighting"><span>$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_weighting")</span><span class="aui-icon aui-icon-small"></span></th>
+            <th id="evaluation_criterion_comment" class="tablesorter-header" tablesorter-data="comment"><span>$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_comment")</span><span class="aui-icon aui-icon-small"></span></th>
+            <th id="evaluation_criterion_operation" class="tablesorter-header-dont-consider"><span>$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operations")</span></th>
         </tr>
     </thead>
-    <tbody>
-        #foreach($ec in $action.getAllEvaluationCriteria())
-        <tr>
-            <td headers="evaluation-criterion-name">$ec.get("evaluation-criterion-name")</td>
-            <td headers="evaluation-criterion-type">$ec.get("evaluation-criterion-type")</td>
-            <td headers="evaluation-criterion-usage">$ec.get("evaluation-criterion-usage")</td>
-            <td headers="evaluation-criterion-owner">$ec.get("evaluation-criterion-owner")</td>
-            <td headers="evaluation-criterion-comment">$ec.get("evaluation-criterion-comment")</td>
-            <td headers="evaluation-criterion-operation"><ul class="operations-list">
-                #if($ec.get("evaluation-criterion-operation-edit") == "on")<li><a id="edit" href="ProManEvaluationCriteria!edit.jspa?id=$ec.get("evaluation-criterion-id")&?atl_token=${atl_token}" description="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_edit_description")">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_edit")</a></li>#end
-                #if($ec.get("evaluation-criterion-operation-copy") == "on")<li><a id="copy" href="ProManEvaluationCriteria!copy.jspa?id=$ec.get("evaluation-criterion-id")&?atl_token=${atl_token}" description="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_copy_description")">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_copy")</a></li>#end
-                #if($ec.get("evaluation-criterion-operation-delete") == "on")<li><a id="delete" href="ProManEvaluationCriteria!delete.jspa?id=$ec.get("evaluation-criterion-id")&?atl_token=${atl_token}" description="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_delete_description")">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_delete")</a></li>#end
-            </ul></td>
-        </tr>
-        #end
-    </tbody>
+    <tbody id="evaluation_criterion_tablerows"></tbody>
 </table>
+<div id="evaluation_cretrion_pagination"></div>
+<section role="dialog" id="evaluation_criteria_dialog" class="aui-layer aui-dialog2 aui-dialog2-medium" aria-hidden="true">
+    <!-- Dialog header -->
+    <header class="aui-dialog2-header">
+        <!-- The dialog's title -->
+        <h2 id="evaluation_criteria_dialog_title" class="aui-dialog2-header-main"></h2>
+        <!-- Actions to render on the right of the header -->
+        <div class="aui-dialog2-header-secondary" />
+        <!-- Close icon -->
+        <a class="aui-dialog2-header-close">
+            <span id="evaluation_criteria_dialog_close_button" class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+        </a>
+    </header>
+    <!-- Main dialog content -->
+    <div class="aui-dialog2-content">
+        <form class="aui" action="#" id="evaluation_criterion_create_form">
+            <input type="hidden" name="atl_token" value="$atl_token" />
+            <div class="aui-flatpack">
+                <div class="field-group">
+                    <label for="evaluation_criterion_name_text_input">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_name")<span class="aui-icon icon-required">$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.required")</span></label>
+                    <input class="text" type="text" id="evaluation_criterion_name_text_input" name="name" title="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_name")" />
+                    <div class="description">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_name.tooltip")</div>
+                </div>
+                <div class="field-group">
+                    <label for="evaluation_criterion_weighting_text_input">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_weighting")<span class="aui-icon icon-required">$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.required")</span></label>
+                    <input class="text" type="text" id="evaluation_criterion_weighting_text_input" name="weighting" title="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_name")" placeholder="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_weighting.validation")" />
+                    <div class="description">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_weighting.tooltip")</div>
+                </div>
+                <div class="field-group">
+                    <label for="evaluation_criterion_comment_textarea_input">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_comment")</label>
+                    <textarea class="textarea" name="comment" id="evaluation_criterion_comment_textarea_input" placeholder="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_comment.tooltip")"></textarea>
+                </div>
+            </div>
+            <div class="aui-flatpack">
+                <div class="field-group">
+                    <label for="evaluation_criterion_type_select_input">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_type")</label>
+                    <select class="select" id="evaluation_criterion_type_select_input" name="evaluation_criterion_type_select_input">
+                        <option id="evaluation_criterion_type_percentage" value="PERCENTAGE">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.evaluation_criterion_type.percentage")</option>
+                        <option id="evaluation_criterion_type_planning_poker" value="PLANNING_POKER">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.evaluation_criterion_type.planning_poker")</option>
+                        <option id="evaluation_criterion_type_chronological_order" value="CHRONOLOGICAL_ORDER">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.evaluation_criterion_type.chronological_order")</option>
+                        <option id="evaluation_criterion_type_reference_quantity" value="REFERENCE_QUANTITY">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.evaluation_criterion_type.reference_quantity")</option>
+                    </select>
+                    <div class="description">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_type.tooltip")</div>
+                </div>
+                <div class="field-group">
+                    <input class="checkbox" type="checkbox" name="bignumberbetter" id="evaluation_criterion_isbignumberbetter_checkbox" checked="checked" />
+                    <label for="evaluation_criterion_isbignumberbetter_checkbox">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.evaluation_criterion_isbignumberbetter")</label>
+                </div>
+                <div class="field-group">
+                    <label for="evaluation_criterion_typeofindex_descirption_textarea_input">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_criterion_typeofindex_description")</label>
+                    <textarea class="textarea" name="typeofindexdescription" id="evaluation_criterion_typeofindex_descirption_textarea_input" placeholder="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_evaluation_typeofindex_description.tooltip")"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Dialog footer -->
+    <footer class="aui-dialog2-footer">
+        <!-- Actions to render on the right of the footer -->
+        <div class="aui-dialog2-footer-actions">
+            <button id="evaluation_criteria_dialog_submit_button" class="aui-button aui-button-primary submit" type="submit"></button>
+            <button id="evaluation_criteria_dialog_next_button" class="aui-button">$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.dialog.next")</button>
+            <button id="evaluation_criteria_dialog_close_button2" class="aui-button aui-button-link">$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.dialog.close")</button>
+        </div>
+        <!-- Hint text is rendered on the left of the footer -->
+        <div class="aui-dialog2-footer-hint" />
+    </footer>
+</section>
+<script>
+var updateDataFromEvalutionCriterionDialog = function(data) {
+    data["name"] = jQuery("#evaluation_criterion_name_text_input").val();
+    data["weighting"] = jQuery("#evaluation_criterion_weighting_text_input").val();
+    data["comment"] = jQuery("#evaluation_criterion_comment_textarea_input").val();
+    if (jQuery("#evaluation_criterion_type_percentage").is(":selected")) {
+        data["typeofindex"] = "PERCENTAGE";
+    }
+    else if (jQuery("#evaluation_criterion_type_planning_poker").is(":selected")) {
+        data["typeofindex"] = "PLANNING_POKER";
+    }
+    else if (jQuery("#evaluation_criterion_type_chronological_order").is(":selected")) {
+        data["typeofindex"] = "CHRONOLOGICAL_ORDER";
+    }
+    else if (jQuery("#evaluation_criterion_type_reference_quantity").is(":selected")) {
+        data["typeofindex"] = "REFERENCE_QUANTITY";
+    }
+    else {
+        data["typeofindex"] = "PERCENTAGE";
+    }
+    data["bignumberbetter"] = jQuery("#evaluation_criterion_isbignumberbetter_checkbox").is(":checked");
+    data["typeofindexdescription"] = jQuery("#evaluation_criterion_typeofindex_descirption_textarea_input").val();
+}
+var createNewEvaluationCriterionFromDialog = function(data) {
+    updateDataFromEvalutionCriterionDialog(data);
+    var submitdata = jQuery.extend({}, data);
+    delete submitdata["_links"];
+    delete submitdata["raboss:_etag"];
+    delete submitdata["raboss:_etag"];
+    jQuery.ajax({
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        url: "$action.getContextPath()",
+        data: JSON.stringify(submitdata),
+        dataType: "json"
+    }).done(function(data, textStatus, jqxhr) {
+        /*AJS.messages.success({
+            title: textStatus + " (" + jqxhr.status + ")",
+            body: "<p>POST</p><p>data = " + JSON.stringify(submitdata) + "</p>",
+            fadeout: true
+        });*/
+        // Reload current page view
+        reloadEvaluationCriterionTable();
+    }).fail(function(jqxhr, textStatus, errorthrown) {
+        AJS.messages.error({
+            title: textStatus + " (" + jqxhr.status + ")",
+            body: "<p>" + jqxhr.statusText + "</p>"
+        });
+    });
+}
+var updateEvaluationCriterionDialog = function(type, data) {
+    jQuery("#evaluation_criterion_name_text_input").val(data["name"]);
+    jQuery("#evaluation_criterion_weighting_text_input").val(data["weighting"]);
+    jQuery("#evaluation_criterion_comment_textarea_input").val(data["comment"]);
+    jQuery("#evaluation_criterion_type_percentage").attr("selected", data["typeofindex"] === "PERCENTAGE");
+    jQuery("#evaluation_criterion_type_planning_poker").attr("selected", data["typeofindex"] === "PLANNING_POKER");
+    jQuery("#evaluation_criterion_type_chronological_order").attr("selected", data["typeofindex"] === "CHRONOLOGICAL_ORDER");
+    jQuery("#evaluation_criterion_type_reference_quantity").attr("selected", data["typeofindex"] === "REFERENCE_QUANTITY");
+    jQuery("#evaluation_criterion_isbignumberbetter_checkbox").prop('checked', data["bignumberbetter"]);
+    jQuery("#evaluation_criterion_typeofindex_descirption_textarea_input").val(data["typeofindexdescription"]);
+    if (type === "create" || type === "copy") {
+        jQuery("#evaluation_criteria_dialog_submit_button").text("$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.dialog.create")");
+        jQuery("#evaluation_criteria_dialog_submit_button").off("click.adminevalationcriteria").on("click.adminevalationcriteria", data, function(e) {
+            createNewEvaluationCriterionFromDialog(e.data);
+            // Reload current page view
+            reloadEvaluationCriterionTable();
+            // Close this dialog
+            jQuery("#evaluation_criteria_dialog_close_button").trigger("click");
+            // stop the bubbling
+            return false;
+        });
+        jQuery("#evaluation_criteria_dialog_next_button").off("click.adminevalationcriteria").on("click.adminevalationcriteria", data, function(e) {
+            createNewEvaluationCriterionFromDialog(e.data);
+            // Reload current page view
+            reloadEvaluationCriterionTable();
+            // stop the bubbling
+            return false;
+        });
+        jQuery("#evaluation_criteria_dialog_next_button").show();
+    }
+    else {
+        jQuery("#evaluation_criteria_dialog_next_button").hide();
+    }
+    if (type === "create") {
+        jQuery("#evaluation_criteria_dialog_title").text("$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.menu.create_evaluation_criteria")");
+    }
+    else if (type === "copy") {
+        jQuery("#evaluation_criteria_dialog_title").text("$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.menu.copy_evaluation_criteria")");
+    }
+    else {
+        if (type === "edit") {
+            jQuery("#evaluation_criteria_dialog_title").text("$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.menu.edit_evaluation_criteria")");
+            jQuery("#evaluation_criteria_dialog_submit_button").text("$i18n.getText("org.raboss.dev.atlassian.jira.proman.ui.dialog.save")");
+            jQuery("#evaluation_criteria_dialog_next_button").hide();
+        }
+        else {
+            jQuery("#evaluation_criteria_dialog_title").text(type);
+        }
+        jQuery("#evaluation_criteria_dialog_submit_button").off("click.adminevalationcriteria").on("click.adminevalationcriteria", data, function(e) {
+            updateDataFromEvalutionCriterionDialog(e.data);
+            var submitdata = jQuery.extend({}, e.data);
+            delete submitdata["_links"];
+            submitdata["raboss:_if-match"] = [submitdata["raboss:_etag"]["otag"]];
+            delete submitdata["raboss:_etag"];
+            jQuery.ajax({
+                type: "PUT",
+                contentType: "application/json",
+                dataType: "json",
+                url: data["_links"]["self"]["href"],
+                data: JSON.stringify(submitdata),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("If-Match", "\"" + submitdata["raboss:_if-match"][0] + "\"");
+                }
+            }).done(function(data, textStatus, jqxhr) {
+                /*AJS.messages.success({
+                    title: textStatus + " (" + jqxhr.status + ")",
+                    body: "<p>PUT</p><p>data = " + JSON.stringify(submitdata) + "</p>",
+                    fadeout: true
+                });*/
+                // Reload current page view
+                reloadEvaluationCriterionTable();
+                // Close this dialog
+                jQuery("#evaluation_criteria_dialog_close_button").trigger("click");
+            }).fail(function(jqxhr, textStatus, errorthrown) {
+                AJS.messages.error({
+                    title: textStatus + " (" + jqxhr.status + ")",
+                    body: "<p>" + jqxhr.statusText + "</p>"
+                });
+            });
+            // stop the bubbling
+            return false;
+        });
+    }
+}
+var deleteEvaluationCriterionDialog = function(data) {
+    jQuery.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        dataType: "json",
+        url: data["_links"]["self"]["href"],
+    }).done(function(data, textStatus, jqxhr) {
+        /*AJS.messages.success({
+            title: textStatus + " (" + jqxhr.status + ")",
+            body: "<p>DELETE</p>",
+            fadeout: true
+        });*/
+        // Reload current page view
+        reloadEvaluationCriterionTable();
+    }).fail(function(jqxhr, textStatus, errorthrown) {
+        AJS.messages.error({
+            title: textStatus + " (" + jqxhr.status + ")",
+            body: "<p>" + jqxhr.statusText + "</p>"
+        });
+    });
+}
+var updateEvaluationCriterionTableSortingClass = function(orderby) {
+    for(var i = 0, len = orderby.length; i < len; ++i) {
+        jQuery("#evaluation_criterion_table").find("th.[tablesorter-data='" + orderby[i]["key"] + "'] span:nth-child(2)").addClass(orderby[i]["order"] === "ASC" ? "aui-iconfont-down" : "aui-iconfont-up");
+    }
+}
+var updateEvaluationCriterionTableSorting = function(hal) {
+    // Reset the sorting order view and apply the "click" event on the headers
+    jQuery("#evaluation_criterion_table").find("th.tablesorter-header").off("click.adminevalationcriteria").find("span:nth-child(2)").removeClass("aui-iconfont-up aui-iconfont-down");
+    if ("_links" in hal && "raboss:pagination" in hal["_links"]) {
+        jQuery("#evaluation_criterion_table").find("th.tablesorter-header").on("click.adminevalationcriteria", hal["_links"]["raboss:pagination"][0], function (e) {
+            var uri = URI(e.data["href"]).removeSearch(["orderby"]);
+            var orderby = [];
+            orderby.push({"key": jQuery(this).attr("tablesorter-data")});
+            orderby[0]["order"] = jQuery(this).find("span:nth-child(2)").hasClass("aui-iconfont-down") ? "DESC" : "ASC";
+            if (!e.shiftKey) {
+                jQuery("#evaluation_criterion_table").find("th.tablesorter-header span:nth-child(2)").removeClass("aui-iconfont-up aui-iconfont-down");
+            }
+            else {
+                // TODO Missing implementation
+                jQuery("#evaluation_criterion_table").find("th.tablesorter-header span:nth-child(2)").removeClass("aui-iconfont-up aui-iconfont-down");
+            }
+            updateEvaluationCriterionTableSortingClass(orderby);
+            uri.addSearch("orderby", orderby[0]["key"] + " " + orderby[0]["order"]);
+            /*AJS.messages.warning({
+                title: "updateEvaluationCriterionTableSorting()",
+                body: "<p>Missing implementation</p><p>orderby = " + JSON.stringify(orderby) + "</p><p>URI: <pre>" + uri.toString() + "</pre></p>"
+            });*/
+            pageEvaluationCriterion(uri.toString());
+            // stop the bubbling
+            return false;
+        });
+        // Go through the information about the current sorting
+        updateEvaluationCriterionTableSortingClass(hal["_links"]["raboss:pagination"][0]["raboss:orderby"]);
+    }
+}
+var updateEvaluationCriterionTableRows = function(data, status, jqxhr) {
+    var updatePaginationLinks = function(link, links) {
+        if (link in links) {
+            jQuery("#navigation_link_" + link).off("click.adminevalationcriteria").on("click.adminevalationcriteria", links[link], function(e) {
+                pageEvaluationCriterion(e.data["href"]);
+                // stop the bubbling
+                return false;
+            });
+        }
+        else {
+            jQuery("#navigation_link_" + link).attr("href", "#").css({"text-decoration": "none", "color": "gray", "cursor": "default"});
+        }
+    }
+    jQuery("#evaluation_cretrion_pagination").empty();
+    if ("next" in data["_links"] || "previous" in data["_links"]) {
+        jQuery("#evaluation_cretrion_pagination").html(AJS.template.load("template_evalutaion_criterion_pagination"));
+        for(var i = 0, links = ["start", "previous", "next", "last"], len = links.length; i < len; i++ ) {
+            updatePaginationLinks(links[i], data["_links"])
+        }
+    }
+    jQuery("#evaluation_criterion_tablerows").empty();
+    for(var i = 0, d = data["_embedded"]["evaluationcriteria"], len = d.length; i < len; ++i) {
+        var t = AJS.template.load("template_evaluation_criterion_tablerow").fill(d[i]);
+        var e = jQuery(t.toString());
+        jQuery("#evaluation_criterion_tablerows").append(e);
+        e.find("#edit_evaluation_criterion,#evaluation_criterion_name_tablecol").off("click.adminevalationcriteria").on("click.adminevalationcriteria", d[i], function(e) {
+            updateEvaluationCriterionDialog("edit", e.data);
+            AJS.dialog2("#evaluation_criteria_dialog").show();
+            // stop the bubbling
+            return false;
+        });
+        e.find("#copy_evaluation_criterion").off("click.adminevalationcriteria").on("click.adminevalationcriteria", d[i], function(e) {
+            updateEvaluationCriterionDialog("copy", e.data);
+            AJS.dialog2("#evaluation_criteria_dialog").show();
+            // stop the bubbling
+            return false;
+        });
+        e.find("#delete_evaluation_criterion").off("click.adminevalationcriteria").on("click.adminevalationcriteria", d[i], function(e) {
+            deleteEvaluationCriterionDialog(e.data);
+            // stop the bubbling
+            return false;
+        });
+    }
+    updateEvaluationCriterionTableSorting(data);
+    // Update information about pagination
+    jQuery("#pagination_info").empty();
+    jQuery("#evaluation_criterion_paginationinfo_reload").off("click.adminevalationcriteria");
+    if ("raboss:pagination" in data["_links"]) {
+        var pageinfo = jQuery.extend({}, data["_links"]["raboss:pagination"][0]);
+        var max = pageinfo["raboss:offset"] + pageinfo["raboss:limit"];
+        pageinfo["raboss:limitabsolute"] = max < pageinfo["raboss:count"] ? max : pageinfo["raboss:count"];
+        pageinfo["raboss:offset"]++;
+        jQuery("#pagination_info").html(AJS.template.load("template_pagination_info").fill(pageinfo).toString());
+        jQuery("#evaluation_criterion_paginationinfo_reload").on("click.adminevalationcriteria", null, function (e) {
+            console.log("#evaluation_criterion_paginationinfo_reload.click()");
+            reloadEvaluationCriterionTable();
+            // stop the bubbling
+            return false;
+        });
+    }
+    // Save data for global usage in this instance, e.g. in function reloadEvalutionCriterionTable()
+    window.data = jQuery.extend({}, data);
+}
+var reloadEvaluationCriterionTable = function () {
+    pageEvaluationCriterion(window.data["_links"]["self"]["href"]);
+}
+var filterEvaluationCriterion = function(input, o) {
+    var uri = URI(o.data["_links"]["self"]["href"]);
+    if (input.length > 0) {
+        uri.removeQuery("filter").removeQuery("filterin");
+        uri.addQuery("filter", input);
+        if (jQuery("#evaluation_criterion_filter_name_checkbox").prop("checked") || jQuery("#evaluation_criterion_filter_comment_checkbox").prop("checked") == false) {
+            uri.addQuery("filterin", "name");
+            // Set this checkbox anyway
+            jQuery("#evaluation_criterion_filter_name_checkbox").prop("checked", "checked");
+        }
+        if (jQuery("#evaluation_criterion_filter_comment_checkbox").prop("checked")) {
+            uri.addQuery("filterin", "comment");
+        }
+        pageEvaluationCriterion(uri.toString());
+    }
+    else if (uri.hasQuery("filter")) {
+        uri.removeQuery("filter");
+        // Filter edit field reached lower limit for an reset.
+        // We initiate only an new request if the current URI does not have
+        // an active "filter" query.
+        pageEvaluationCriterion(uri.toString());
+    }
+}
+/*
+    Read the a list of evaluation criterion elements based on an "contextpath" and update the table
+ */
+var pageEvaluationCriterion = function(contextpath) {
+    // Setup the dialog
+    // FIXME(do not hide any dialog boxes if reloading the table) AJS.dialog2("#evaluation_criteria_dialog").hide();
+    jQuery("#evaluation_criteria_dialog_close_button,#evaluation_criteria_dialog_close_button2").off("click.adminevalationcriteria").on("click.adminevalationcriteria", function() {
+        jQuery("#evaluation_criteria_dialog_submit_button,#evaluation_criteria_dialog_next_button").off("click.adminevalationcriteria");
+        AJS.dialog2("#evaluation_criteria_dialog").hide();
+        // stop the bubbling
+        return false;
+    });
+    jQuery("#create_evaluation_criteria_button").off("click.adminevalationcriteria").on("click.adminevalationcriteria", function() {
+        updateEvaluationCriterionDialog("create", {});
+        AJS.dialog2("#evaluation_criteria_dialog").show();
+        // stop the bubbling
+        return false;
+    });
+    // Read the first entries
+    console.log("getJSON: " + contextpath);
+    jQuery("#evaluation_criterion_quickfilter_input").off("keypress.adminevalationcriteria");
+    jQuery("#evaluation_criterion_filter_submit").off("click.adminevalationcriteria");
+    jQuery.getJSON(contextpath)
+        .done(function(json) {
+            updateEvaluationCriterionTableRows(json, 200, null);
+        })
+        .fail(function(jqxhr, textStatus, errorthrown) {
+            if (jqxhr.status >= 300 && jqxhr.status < 400) {
+                var data = jQuery.parseJSON(jqxhr.responseText);
+                updateEvaluationCriterionTableRows(data, jqxhr.status, jqxhr);
+            }
+            else if (jqxhr.status >= 400 && jqxhr.status < 500) {
+                updateEvaluationCriterionTableRows({"_links": {"self": {"href": contextpath}}, "_embedded": {"evaluationcriteria": []}}, jqxhr.status, jqxhr);
+                AJS.messages.warning({
+                    title: "$i18n.getText("org.raboss.dev.atlassian.jira.proman.text.http_status_code"): " + jqxhr.status,
+                    id: "error-" + jqxhr.status + "-update-evaluation-criterion",
+                    body: "<p>$i18n.getText("org.raboss.dev.atlassian.jira.proman.message.http_status_code_4xx")</p>"
+                });
+            }
+            else {
+                updateEvaluationCriterionTableRows({"_links": {"self": {"href": contextpath}}, "_embedded": {"evaluationcriteria": []}}, jqxhr.status, jqxhr);
+                AJS.messages.error({
+                    title: "$i18n.getText("org.raboss.dev.atlassian.jira.proman.text.http_status_code"): " + jqxhr.status,
+                    id: "error-" + jqxhr.status + "-update-evaluation-criterion",
+                    body: '<p>$i18n.getText("org.raboss.dev.atlassian.jira.proman.message.http_status_code_unexpected")</p>'
+                });
+            }
+        })
+        .always(function(json) {
+            jQuery("#evaluation_criterion_quickfilter_input").typeWatch({wait: 750, highlight: true, allowSubmit: false, captureLength: 2, data: json, callback: filterEvaluationCriterion});
+            jQuery("#evaluation_criterion_filter_submit").off("click.adminevalationcriteria").on("click.adminevalationcriteria", json, function (e) {
+                filterEvaluationCriterion(jQuery("#evaluation_criterion_quickfilter_input").val(), e);
+                // stop the bubbling
+                return false;
+            });
+        });
+}
+AJS.toInit(function() {
+    pageEvaluationCriterion("$action.getContextPath()");
+});
+</script>
+<!-- Template for evaluation criterion table row -->
+<script title="template_evaluation_criterion_tablerow" type="text/x-template">
+    <tr>
+        <td headers="evaluation-criterion-name" id="evaluation_criterion_name_tablecol">{name}</td>
+        <td headers="evaluation-criterion-type" id="evaluation_criterion_weighting_tablecol">{weighting}</td>
+        <td headers="evaluation-criterion-comment" id="evalution_criterion_comment_tablecol">{comment}</td>
+        <td headers="evaluation-criterion-operation"><ul class="operations-list">
+            <li><a id="edit_evaluation_criterion" href="#" description="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_edit_description")">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_edit")</a></li>
+            <li><a id="copy_evaluation_criterion" href="#" description="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_copy_description")">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_copy")</a></li>
+            <li><a id="delete_evaluation_criterion" href="#" description="$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_delete_description")">$i18n.getText("org.raboss.dev.atlassian.jira.proman.menu.manage_operation_delete")</a></li>
+        </ul></td>
+    </tr>
+</script>
+<script title="template_evalutaion_criterion_pagination" type="text/x-template">
+    <ol class="aui-nav aui-nav-pagination" style="padding-top:10px">
+        <li class="aui-nav-first"><a href="#" id="navigation_link_start"><span>&#124;&lt; $i18n.getText("org.raboss.dev.atlassian.jira.proman.pagination.first_entry")</span></a></li>
+        <li class="aui-nav-previous"><a href="#" id="navigation_link_previous"><span>&lt; $i18n.getText("org.raboss.dev.atlassian.jira.proman.pagination.previous_entry")</span></a></li>
+        <li class="aui-nav-next"><a href="#" id="navigation_link_next"><span>$i18n.getText("org.raboss.dev.atlassian.jira.proman.pagination.next_entry") &gt;</span></a></li>
+        <li class="aui-nav-last"><a href="#" id="navigation_link_last"><span>$i18n.getText("org.raboss.dev.atlassian.jira.proman.pagination.last_entry") &gt;&#124;</span></a></li>
+    </ol>
+</script>
+<script title="template_pagination_info" type="text/x-template">
+<div class="aui-item"><span class="result-count-text">$i18n.getText("org.raboss.dev.atlassian.jira.proman.pagination.page_info")</span><a id="evaluation_criterion_paginationinfo_reload" class="refresh-table" href="#" title="$i18n.getText("org.raboss.dev.atlassian.jira.proman.pagination.refresh_results")"><span class="aui-icon aui-icon-small aui-iconfont-refresh-small">$i18n.getText("org.raboss.dev.atlassian.jira.proman.pagination.refresh_results")</span></a></div>
+</script>

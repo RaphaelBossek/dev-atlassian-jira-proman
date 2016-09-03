@@ -25,9 +25,9 @@ A small and short overview about the project plan:
 - [x] Concept papers with maths, required software libraries and tools, database model, user interface finalised 
 - [x] Descriptive statistics examples with box plot are working in [Mathematica](http://mathematica.stackexchange.com/questions/102911/inverted-empirical-cdf-with-averaging-including-boxwhiskerchart)
 - [x] Development environment is working and version control system is up and running, including first sample code
-- [ ] Definition of weighting is working
+- [x] Definition of evaluation criteria is working
 - [ ] Setup of polls is working
-- [ ] Definition of weighting categories is working
+- [ ] Definition of evaluation categories is working
 - [ ] Execution of polls is working
 - [ ] Analysing polls as [box plot](https://en.wikipedia.org/wiki/Box_plot) is working
 - [ ] Analysing polls as [Product Portfolio Matrix](https://en.wikipedia.org/wiki/Growth%E2%80%93share_matrix) is working

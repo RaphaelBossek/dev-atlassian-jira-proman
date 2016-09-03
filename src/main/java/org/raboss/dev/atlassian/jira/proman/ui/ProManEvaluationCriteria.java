@@ -1,18 +1,12 @@
 package org.raboss.dev.atlassian.jira.proman.ui;
 
-import com.atlassian.activeobjects.external.ActiveObjects;
+import com.atlassian.jira.component.ComponentAccessor;
+import com.atlassian.jira.config.properties.APKeys;
 import com.atlassian.jira.web.action.JiraWebActionSupport;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import net.java.ao.Query;
-import org.raboss.dev.atlassian.jira.proman.entity.EvalCriterion;
+import org.raboss.dev.atlassian.jira.proman.api.rest.EvaluationCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Manage (create,copy,modify,delete) the evaluation criteria in the
@@ -23,18 +17,10 @@ import java.util.List;
  */
 @Scanned
 public class ProManEvaluationCriteria extends JiraWebActionSupport {
-    @ComponentImport
-    final private ActiveObjects activeObjects;
-
     static final private Logger log;
 
     static {
         log = LoggerFactory.getLogger(ProManEvaluationCriteria.class);
-    }
-
-    @Inject
-    ProManEvaluationCriteria(final ActiveObjects activeObjects) {
-        this.activeObjects = activeObjects;
     }
 
     @Override
@@ -43,32 +29,29 @@ public class ProManEvaluationCriteria extends JiraWebActionSupport {
         return SUCCESS;
     }
 
-    /**
-     * TODO: Definition of maximum number of evaluation criteria depending on the license
-     * TODO: Definition of maximum number of evaluation criteria per page
-     * TODO: Paging between lists of evaluation criteria
-     * @return
-     */
-    public List<HashMap<String,String>> getAllEvaluationCriteria() {
-        List<HashMap<String,String>> l = new ArrayList<HashMap<String,String>>();
-        log.debug("getAllEvaluationCriteria()");
-        EvalCriterion[] ecs = activeObjects.find(EvalCriterion.class, Query.select().limit(25));
-        if(ecs.length != 0) {
-            for(EvalCriterion ec : ecs) {
-                log.debug("name:{}, type:{}, comment:{}", ec.getName(), ec.getTypeOfIndex().toString(), ec.getComment());
-                HashMap<String,String> kw = new HashMap<String, String>();
-                kw.put("evaluation-criterion-id", String.valueOf(ec.getID()));
-                kw.put("evaluation-criterion-name", ec.getName());
-                kw.put("evaluation-criterion-type", ec.getTypeOfIndex().toString());
-                kw.put("evaluation-criterion-usage", "");
-                kw.put("evaluation-criterion-owner", "");
-                kw.put("evaluation-criterion-comment", ec.getComment());
-                kw.put("evaluation-criterion-operation-edit", "on");
-                kw.put("evaluation-criterion-operation-copy", "on");
-                kw.put("evaluation-criterion-operation-delete", "on");
-                l.add(kw);
-            }
-        }
-        return l;
+    //@RequiresXsrfCheck
+    public String doCreateEvaluationCriteria() throws Exception {
+        log.debug("doCreateEvaluationCriteria");
+        log.debug("parameter[evaluation_criterion_name_text_input]={}, parameter[evaluation_criterion_type_select_input]={}", getHttpRequest().getParameter("evaluation_criterion_name_text_input").toString(), getHttpRequest().getParameter("evaluation_criterion_type_select_input").toString());
+        return returnComplete();
+    }
+
+    public String doEditEvaluationCriterion() throws Exception {
+        log.debug("doEditEvaluationCriterion");
+        return returnComplete();
+    }
+
+    public String doCopyEvaluationCriterion() throws Exception {
+        log.debug("doCopyEvaluationCriterion");
+        return returnComplete();
+    }
+
+    public String doDeleteEvaluationCriterion() throws Exception {
+        log.debug("doDeleteEvaluationCriterion");
+        return returnComplete();
+    }
+
+    public String getContextPath() throws Exception {
+        return ComponentAccessor.getApplicationProperties().getString(APKeys.JIRA_BASEURL) + EvaluationCriteria.RESTCONTEXTPATH;
     }
 }
